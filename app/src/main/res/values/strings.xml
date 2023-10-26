@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Lazos Pet Shop</string>
+    <string name="logLblCorreo">Correo</string>
+    <string name="logLblContraseña">Contraseña</string>
+    <string name="logTxtHintCorreo">Ingrese su correo</string>
+    <string name="logTxtHintContraseña">Ingrese su contraseña</string>
+    <string name="logBtnIniciar">Iniciar</string>
+    <string name="logBtnRegistrate">Registrate</string>
+    <string name="logLblOlvidarContraseña">¿Olvidaste la contraseña?</string>
+    <string name="perLblSaludo">Bienvenido</string>
 </resources>
