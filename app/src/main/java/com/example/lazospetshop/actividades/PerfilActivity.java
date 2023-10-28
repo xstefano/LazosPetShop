@@ -16,7 +16,7 @@ public class PerfilActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
 
-        //lblSaludo = findViewById(R.id.);
+        lblSaludo = findViewById(R.id.perLblSaludo);
         lblSaludo.setText("Bienvenido " + getIntent().getStringExtra("nombre"));
     }
 }
