@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Lazos Pet Shop</string>
+
     <string name="logLblCorreo">Correo</string>
     <string name="logLblContraseña">Contraseña</string>
     <string name="logTxtHintCorreo">Ingrese su correo</string>
@@ -8,4 +9,25 @@
     <string name="logBtnRegistrate">Registrate</string>
     <string name="logLblOlvidarContraseña">¿Olvidaste la contraseña?</string>
     <string name="perLblSaludo">Bienvenido</string>
+    <string name="app_registro">Registro</string>
+
+    <string name="txt_nombreRegistro">Nombres</string>
+    <string name="txt_apellidosRegistro">Apellidos</string>
+    <string name="txt_tipoDocumentoRegistro">Tipo Documento</string>
+    <string name="txt_numeroDocumentoRegistro">Numero Documento</string>
+    <string name="txt_generoRegistro">Genero</string>
+    <string name="txt_correoRegistro">Correo</string>
+    <string name="txt_contraRegistro">Contraseña</string>
+    <string name="txt_contrarepetirRegistro">Repetir Contraseña</string>
+    <string name="regTxtHintNombre">Ingrese sus Nombres</string>
+    <string name="regTxtHintApellido">Ingrese sus Apellidos</string>
+    <string name="regTxtHintnumeroDocumento">Ingrese Documento</string>
+    <string name="regTxtHintCorreoRegistro">Ingrese su correo</string>
+    <string name="regTxtHintContraRegistro">Ingrese su contraseña</string>
+    <string name="regTxtHintContraRepetirRegistro">Repita su contraseña</string>
+    <string name="rbmasculino">Masculino</string>
+    <string name="rbfemenino">Femenino</string>
+    <string name="rbnoBinario">No Binario</string>
+    <string name="btnRegistrarRegistro">Registrarse</string>
+    <string name="btnVolverRegistro">Volver</string>
 </resources>
