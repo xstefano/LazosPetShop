@@ -25,8 +25,7 @@
         <ImageView
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@drawable/logo">
-        </ImageView>
+            android:src="@drawable/logo"></ImageView>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
