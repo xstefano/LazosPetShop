@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".actividades.ProductosActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        tools:ignore="MissingConstraints"
+        android:orientation="vertical">
+        <fragment
+            android:id="@+id/frmMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:name="com.example.lazospetshop.fragmentos.MenuFragment"
+            tools:layout="@layout/fragment_menu">
+        </fragment>
+        <TextView
+            android:id="@+id/perLblProductos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/perLblProducto">
+        </TextView>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

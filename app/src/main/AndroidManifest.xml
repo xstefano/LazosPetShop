@@ -13,6 +13,9 @@
         android:theme="@style/Theme.LazosPetShop"
         tools:targetApi="31">
         <activity
+            android:name=".actividades.ProductosActivity"
+            android:exported="false" />
+        <activity
             android:name=".actividades.MenuActivity"
             android:exported="false" />
         <activity
