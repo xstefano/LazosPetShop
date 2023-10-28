@@ -30,4 +30,6 @@
     <string name="rbnoBinario">No Binario</string>
     <string name="btnRegistrarRegistro">Registrarse</string>
     <string name="btnVolverRegistro">Volver</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
