@@ -12,7 +12,7 @@ import com.example.lazospetshop.R;
 
 public class PerfilActivity extends AppCompatActivity implements View.OnClickListener  {
 
-    Button btnProductos,btnServicios;
+    Button btnProductos,btnServicios,btnMascota;
     TextView lblSaludo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,10 +20,12 @@ public class PerfilActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_perfil);
         btnProductos = findViewById(R.id.perNuestrosProductos);
         btnServicios = findViewById(R.id.perSolicitaServicios);
+        btnMascota = findViewById(R.id.perRegistrarMascota);
         lblSaludo = findViewById(R.id.perLblSaludo);
         lblSaludo.setText("Bienvenido " + getIntent().getStringExtra("nombre"));
         btnProductos.setOnClickListener(this);
         btnServicios.setOnClickListener(this);
+        btnMascota.setOnClickListener(this);
     }
 
     @Override
@@ -37,8 +39,10 @@ public class PerfilActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.perSolicitaServicios:
                 Intent iServicio = new Intent(this, RegistrarServicioActivity.class);
-                //iServicio.putExtra("nombre", "Cliente");
                 startActivity(iServicio);
+            case R.id.perRegistrarMascota:
+                Intent iMascota = new Intent(this, RegistraMascotaActivity.class);
+                startActivity(iMascota);
         }
     }
 }
