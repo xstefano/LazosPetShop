@@ -5,12 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".actividades.ProductoRopaActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteX="-40dp"
         tools:layout_editor_absoluteY="0dp">
+
+        <fragment
+            android:id="@+id/frmMenu"
+            android:name="com.example.lazospetshop.fragmentos.MenuFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_menu"></fragment>
 
         <TextView
             android:layout_width="145dp"
