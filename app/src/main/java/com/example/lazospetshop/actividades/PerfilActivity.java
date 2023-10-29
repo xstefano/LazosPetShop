@@ -12,16 +12,18 @@ import com.example.lazospetshop.R;
 
 public class PerfilActivity extends AppCompatActivity implements View.OnClickListener  {
 
-    Button btnProductos;
+    Button btnProductos,btnServicios;
     TextView lblSaludo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
         btnProductos = findViewById(R.id.perNuestrosProductos);
+        btnServicios = findViewById(R.id.perSolicitaServicios);
         lblSaludo = findViewById(R.id.perLblSaludo);
         lblSaludo.setText("Bienvenido " + getIntent().getStringExtra("nombre"));
         btnProductos.setOnClickListener(this);
+        btnServicios.setOnClickListener(this);
     }
 
     @Override
@@ -29,10 +31,14 @@ public class PerfilActivity extends AppCompatActivity implements View.OnClickLis
         System.out.println("entre");
         switch(view.getId()){
             case R.id.perNuestrosProductos:
-                Intent iProducto = new Intent(this, ProductosActivity.class);
-                iProducto.putExtra("nombre", "Cliente");
-                startActivity(iProducto);
+                Intent iProductoRopa = new Intent(this, ProductoRopaActivity.class);
+                iProductoRopa.putExtra("nombre", "Cliente");
+                startActivity(iProductoRopa);
                 break;
+            case R.id.perSolicitaServicios:
+                Intent iServicio = new Intent(this, RegistrarServicioActivity.class);
+                //iServicio.putExtra("nombre", "Cliente");
+                startActivity(iServicio);
         }
     }
 }
