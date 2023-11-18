@@ -42,7 +42,6 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_weight="1"
                 android:src="@drawable/rop1" />
-
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -58,24 +57,24 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/btnRopa1"
                 android:layout_width="178dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_weight="1"
                 android:gravity="start"
-                android:text="Poncho perro
-                    S/15.00"
+                android:text="@string/btnRop1"
                 android:textAllCaps="false"
                 android:textSize="15sp"></Button>
 
             <Button
+                android:id="@+id/btnRopa2"
                 android:layout_width="177dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_weight="1"
                 android:gravity="start"
-                android:text="Abrigo gato
-                S/15.00"
+                android:text="@string/btnRop2"
                 android:textAllCaps="false"
                 android:textSize="15sp"></Button>
         </LinearLayout>
@@ -108,22 +107,24 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/btnRopa3"
                 android:layout_width="202dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_weight="1"
                 android:gravity="start"
-                android:text="Bufanda alianza lima S/15.00"
+                android:text="@string/btnRop3"
                 android:textAllCaps="false"
                 android:textSize="15sp"></Button>
 
             <Button
+                android:id="@+id/btnRopa4"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_weight="1"
                 android:gravity="start"
-                android:text="Disfras Leon perro S/15.00"
+                android:text="@string/btnRop4"
                 android:textAllCaps="false"
                 android:textSize="15sp"></Button>
         </LinearLayout>
@@ -156,22 +157,24 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/btnRopa5"
                 android:layout_width="178dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_weight="1"
                 android:gravity="start"
-                android:text="Disfras Woody perro S/15.00"
+                android:text="@string/btnRop5"
                 android:textAllCaps="false"
                 android:textSize="15sp"></Button>
 
             <Button
+                android:id="@+id/btnRopa6"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_weight="1"
                 android:gravity="start"
-                android:text="Disfras minion perro S/15.00"
+                android:text="@string/btnRop6"
                 android:textAllCaps="false"
                 android:textSize="15sp"></Button>
         </LinearLayout>

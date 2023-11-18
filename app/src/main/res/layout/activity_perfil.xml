@@ -63,7 +63,7 @@
                     android:id="@+id/perRegistrarMascota"
                     android:layout_width="120dp"
                     android:layout_height="70dp"
-                    android:text="Regsitra tu mascota"
+                    android:text="Registra tu mascota"
                     android:textAllCaps="false">
                 </Button>
 

@@ -11,12 +11,17 @@
         android:orientation="vertical"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
+        <fragment
+            android:id="@+id/frmMenu"
+            android:name="com.example.lazospetshop.fragmentos.MenuFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_menu"></fragment>
 
         <TextView
             android:layout_width="145dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="150dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="130dp"
             android:layout_marginEnd="240dp"
             android:gravity="start"
             android:text="Juguetes"
@@ -50,23 +55,24 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/btnJuguete1"
                 android:layout_width="178dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_weight="1"
                 android:gravity="start"
-                android:text="Hueso de plastico
-                    S/15.00"
+                android:text="@string/btnJug1"
                 android:textAllCaps="false"
                 android:textSize="15sp"></Button>
 
             <Button
+                android:id="@+id/btnJuguete2"
                 android:layout_width="177dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_weight="1"
                 android:gravity="start"
-                android:text="Pelota de plastico S/10.00"
+                android:text="@string/btnJug2"
                 android:textAllCaps="false"
                 android:textSize="15sp"></Button>
         </LinearLayout>
@@ -99,23 +105,24 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/btnJuguete3"
                 android:layout_width="192dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_weight="1"
                 android:gravity="start"
-                android:text="Juguete de plumas
-                    S/7.00"
+                android:text="@string/btnJug3"
                 android:textAllCaps="false"
                 android:textSize="15sp"></Button>
 
             <Button
+                android:id="@+id/btnJuguete4"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_weight="1"
                 android:gravity="start"
-                android:text="Juguete para aves S/17.00"
+                android:text="@string/btnJug4"
                 android:textAllCaps="false"
                 android:textSize="15sp"></Button>
         </LinearLayout>
@@ -148,23 +155,24 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/btnJuguete5"
                 android:layout_width="178dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_weight="1"
                 android:gravity="start"
-                android:text="Juguete de Rueda
-                    S/20.00"
+                android:text="@string/btnJug5"
                 android:textAllCaps="false"
                 android:textSize="15sp"></Button>
 
             <Button
+                android:id="@+id/btnJuguete6"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_weight="1"
                 android:gravity="start"
-                android:text="Juguete de Accecan S/13.00"
+                android:text="@string/btnJug6"
                 android:textAllCaps="false"
                 android:textSize="15sp"></Button>
         </LinearLayout>

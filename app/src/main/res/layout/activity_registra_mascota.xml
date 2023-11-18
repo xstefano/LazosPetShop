@@ -4,20 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".actividades.RegistraMascotaActivity">
+    tools:context=".actividades.RegistroMascotaActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
+
         <fragment
             android:id="@+id/frmMenu"
+            android:name="com.example.lazospetshop.fragmentos.MenuFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:name="com.example.lazospetshop.fragmentos.MenuFragment"
-            tools:layout="@layout/fragment_menu">
-        </fragment>
+            tools:layout="@layout/fragment_menu"></fragment>
+
 
         <TextView
             android:layout_width="264dp"
@@ -74,6 +76,7 @@
         </TextView>
 
         <Spinner
+            android:id="@+id/spiTipoRaza"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -101,26 +104,28 @@
 
             <RadioButton
                 android:id="@+id/radio_masculino"
-                android:layout_width="wrap_content"
-                android:layout_height="26dp"
-                android:layout_marginRight="1dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:checked="true"
-                android:text="Masculino" />
+                android:text="@string/rbMacho" />
 
             <RadioButton
                 android:id="@+id/radio_femenino"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:checked="false"
-                android:text="Femenino" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/rbHembra" />
         </RadioGroup>
 
         <Button
+            android:id="@+id/rgBtnMascota"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="120dp"
             android:layout_marginVertical="5dp"
-            android:text="Registrar Mascota"
+            android:text="@string/btnRgMascota"
             android:textAllCaps="false" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

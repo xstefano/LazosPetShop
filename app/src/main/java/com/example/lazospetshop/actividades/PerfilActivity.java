@@ -33,16 +33,18 @@ public class PerfilActivity extends AppCompatActivity implements View.OnClickLis
         System.out.println("entre");
         switch(view.getId()){
             case R.id.perNuestrosProductos:
-                Intent iProductoRopa = new Intent(this, ProductoRopaActivity.class);
-                iProductoRopa.putExtra("nombre", "Cliente");
-                startActivity(iProductoRopa);
+                Intent iProductos = new Intent(this, ProductosActivity.class);
+                //iProductos.putExtra("nombre", "Cliente");
+                startActivity(iProductos);
                 break;
             case R.id.perSolicitaServicios:
                 Intent iServicio = new Intent(this, RegistrarServicioActivity.class);
                 startActivity(iServicio);
+                break;
             case R.id.perRegistrarMascota:
                 Intent iMascota = new Intent(this, RegistraMascotaActivity.class);
                 startActivity(iMascota);
+                break;
         }
     }
 }
