@@ -13,6 +13,7 @@
     <string name="perLblCategoria">Categoria</string>
     <string name="app_registro">Registro</string>
     <string name="app_detallepago">Detalle de Pago</string>
+    <string name="btnSubImagen">Subir Imagen</string>
 
 
     <string name="txt_nombreRegistro">Nombres</string>
