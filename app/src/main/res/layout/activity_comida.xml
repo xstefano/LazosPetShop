@@ -16,8 +16,9 @@
             android:id="@+id/frmMenu"
             android:name="com.example.lazospetshop.fragmentos.MenuFragment"
             android:layout_width="match_parent"
-            android:layout_height="79dp"
+            android:layout_height="wrap_content"
             tools:layout="@layout/fragment_menu"></fragment>
+
         <TextView
             android:layout_width="145dp"
             android:layout_height="wrap_content"
