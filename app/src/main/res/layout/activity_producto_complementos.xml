@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".actividades.ComidaActivity">
+    tools:context=".ProductoComplementosActivity">
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,22 +18,22 @@
             android:id="@+id/frmMenu"
             android:name="com.example.lazospetshop.fragmentos.MenuFragment"
             android:layout_width="match_parent"
-            android:layout_height="79dp"
-            tools:layout="@layout/fragment_menu"></fragment>
-        <TextView
-            android:layout_width="145dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="150dp"
+            tools:layout="@layout/fragment_menu"></fragment>
+
+        <TextView
+            android:layout_width="223dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="110dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="240dp"
             android:gravity="start"
-            android:text="Comida"
+            android:text="@string/app_complemento"
             android:textSize="30sp"></TextView>
 
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="87dp"
+            android:layout_height="116dp"
             android:layout_marginHorizontal="50dp"
             android:orientation="horizontal">
 
@@ -40,91 +42,41 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_weight="1"
-                android:src="@drawable/pro1" />
+                android:src="@drawable/comp1" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_weight="1"
-                android:src="@drawable/pro2" />
+                android:src="@drawable/comp2" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="365dp"
-            android:layout_height="58dp"
-            android:layout_marginHorizontal="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnComida1"
-                android:layout_width="145dp"
-                android:layout_height="75dp"
+                android:id="@+id/btncomplement1"
+                android:layout_width="178dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_weight="1"
                 android:gravity="start"
-                android:text="@string/btnComi1"
+                android:text="@string/btnComplemen1"
                 android:textAllCaps="false"
                 android:textSize="15sp"></Button>
 
             <Button
-                android:id="@+id/btnComida2"
-                android:layout_width="145dp"
+                android:id="@+id/btnComplement2"
+                android:layout_width="177dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_weight="1"
                 android:gravity="start"
-                android:text="@string/btnComi2"
-                android:textAllCaps="false"
-                android:textSize="15sp"></Button>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginHorizontal="50dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:src="@drawable/pro4" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:src="@drawable/pro5" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="365dp"
-            android:layout_height="58dp"
-            android:layout_marginHorizontal="30dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnComida3"
-                android:layout_width="145dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:text="@string/btnComi3"
-                android:textAllCaps="false"
-                android:textSize="15sp"></Button>
-
-            <Button
-                android:id="@+id/btnComida4"
-                android:layout_width="145dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:text="@string/btnComi4"
+                android:text="@string/btnComplemen2"
                 android:textAllCaps="false"
                 android:textSize="15sp"></Button>
         </LinearLayout>
@@ -140,44 +92,94 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_weight="1"
-                android:src="@drawable/pro6" />
+                android:src="@drawable/comp3" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_weight="1"
-                android:src="@drawable/pro3" />
+                android:src="@drawable/comp4" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="365dp"
-            android:layout_height="58dp"
-            android:layout_marginHorizontal="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnComida5"
-                android:layout_width="145dp"
+                android:id="@+id/btnComplement3"
+                android:layout_width="202dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_weight="1"
                 android:gravity="start"
-                android:text="@string/btnComi5"
+                android:text="@string/btnComplemen3"
                 android:textAllCaps="false"
                 android:textSize="15sp"></Button>
 
             <Button
-                android:id="@+id/btnComida6"
-                android:layout_width="145dp"
+                android:id="@+id/btnComplement4"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_weight="1"
                 android:gravity="start"
-                android:text="@string/btnComi6"
+                android:text="@string/btnComplemen4"
                 android:textAllCaps="false"
                 android:textSize="15sp"></Button>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="116dp"
+            android:layout_marginHorizontal="50dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_weight="1"
+                android:src="@drawable/comp5" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_weight="1"
+                android:src="@drawable/comp6" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnComplement5"
+                android:layout_width="178dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:text="@string/btnComplemen6"
+                android:textAllCaps="false"
+                android:textSize="15sp"></Button>
+
+            <Button
+                android:id="@+id/btnComplement6"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:text="@string/btnComplemen6"
+                android:textAllCaps="false"
+                android:textSize="15sp"></Button>
+        </LinearLayout>
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
