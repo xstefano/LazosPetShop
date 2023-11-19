@@ -7,6 +7,7 @@
     <string name="logTxtHintContraseña">Ingrese su contraseña</string>
     <string name="logBtnIniciar">Iniciar</string>
     <string name="logBtnRegistrate">Registrate</string>
+    <string name="logChkRecordar">Recordar Clave</string>
     <string name="logLblOlvidarContraseña">¿Olvidaste la contraseña?</string>
     <string name="perLblSaludo">Bienvenido</string>
     <string name="perLblProducto">Productos</string>
@@ -14,7 +15,7 @@
     <string name="app_registro">Registro</string>
     <string name="app_detallepago">Detalle de Pago</string>
     <string name="btnSubImagen">Subir Imagen</string>
-
+    <string name="logLblCopyright">Derechos Reservados UPN - 2023</string>
 
     <string name="txt_nombreRegistro">Nombres</string>
     <string name="txt_nombreDetalle">Nombres</string>
