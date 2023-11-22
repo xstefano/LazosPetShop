@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".actividades.ComidaActivity">
     <LinearLayout
+        android:id="@+id/layoutComida"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
+
 
         <fragment
             android:id="@+id/frmMenu"
@@ -20,165 +21,12 @@
             tools:layout="@layout/fragment_menu"></fragment>
 
         <TextView
-            android:layout_width="145dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="150dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="240dp"
-            android:gravity="start"
+            android:gravity="center"
             android:text="Comida"
-            android:textSize="30sp"></TextView>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="87dp"
-            android:layout_marginHorizontal="50dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:src="@drawable/pro1" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:src="@drawable/pro2" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="365dp"
-            android:layout_height="58dp"
-            android:layout_marginHorizontal="30dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnComida1"
-                android:layout_width="145dp"
-                android:layout_height="75dp"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:text="@string/btnComi1"
-                android:textAllCaps="false"
-                android:textSize="15sp"></Button>
-
-            <Button
-                android:id="@+id/btnComida2"
-                android:layout_width="145dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:text="@string/btnComi2"
-                android:textAllCaps="false"
-                android:textSize="15sp"></Button>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginHorizontal="50dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:src="@drawable/pro4" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:src="@drawable/pro5" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="365dp"
-            android:layout_height="58dp"
-            android:layout_marginHorizontal="30dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnComida3"
-                android:layout_width="145dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:text="@string/btnComi3"
-                android:textAllCaps="false"
-                android:textSize="15sp"></Button>
-
-            <Button
-                android:id="@+id/btnComida4"
-                android:layout_width="145dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:text="@string/btnComi4"
-                android:textAllCaps="false"
-                android:textSize="15sp"></Button>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="116dp"
-            android:layout_marginHorizontal="50dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:src="@drawable/pro6" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:src="@drawable/pro3" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="365dp"
-            android:layout_height="58dp"
-            android:layout_marginHorizontal="30dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnComida5"
-                android:layout_width="145dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:text="@string/btnComi5"
-                android:textAllCaps="false"
-                android:textSize="15sp"></Button>
-
-            <Button
-                android:id="@+id/btnComida6"
-                android:layout_width="145dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:text="@string/btnComi6"
-                android:textAllCaps="false"
-                android:textSize="15sp"></Button>
-        </LinearLayout>
+            android:textSize="30sp">
+        </TextView>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
