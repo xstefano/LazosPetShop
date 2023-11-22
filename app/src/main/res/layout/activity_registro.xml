@@ -212,7 +212,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
-                            android:checked="true"
+                            android:checked="false"
                             android:text="@string/rbmasculino" />
 
                         <RadioButton
@@ -230,7 +230,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginVertical="0dp"
                             android:layout_weight="2"
-                            android:checked="false"
+                            android:checked="true"
                             android:text="@string/rbnoSinDefinir" />
                     </RadioGroup>
                 </RelativeLayout>

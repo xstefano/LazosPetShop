@@ -32,14 +32,14 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
     private final static String urlController = "https://lazospetshop.azurewebsites.net/api/usuario/registrar";
     //private final static String urlController = "http://veterinaria-upn.atwebpages.com/ws/agregarUsuario.php";
     EditText txtNombres,txtApellidos,txtNumeroDocumento,txtCorreo,txtContrasena;
-    Button btnRegistrar;
+    Button btnRegistrar, btnVolver;
     RadioGroup rgrSexo;
     RadioButton rbtSinDefinir;
     RadioButton rbMasculino;
     RadioButton rbFemenino;
 
     Spinner cboDocumento;
-    String[] valores = {"","DNI","CARNE EXTRANJERIA","PASAPORTE"};
+    String[] valores = {"SELECCIONE","DNI","CARNE EXTRANJERIA","PASAPORTE"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +51,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
         txtContrasena = findViewById(R.id.txtContra);
 
         btnRegistrar = findViewById(R.id.btnRegistrar);
-
+        btnVolver = findViewById(R.id.btnVolver);
 
         cboDocumento = findViewById(R.id.tipoDocumento);
 
@@ -59,6 +59,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
 
         rgrSexo = findViewById(R.id.rbTipoConsulta);
         btnRegistrar.setOnClickListener(this);
+        btnVolver.setOnClickListener(this);
         cboDocumento.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -78,12 +79,10 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.btnRegistrar){
-
             registrar();
         }
         else if(v.getId() == R.id.btnVolver){
             Intent iVolver = new Intent(this, IniciarSesionActivity.class);
-            //iServicio.putExtra("nombre", "Cliente");
             startActivity(iVolver);
         }
     }
