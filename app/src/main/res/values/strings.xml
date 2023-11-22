@@ -15,8 +15,7 @@
     <string name="app_registro">Registro</string>
     <string name="app_detallepago">Detalle de Pago</string>
     <string name="btnSubImagen">Subir Imagen</string>
-    <string name="logLblCopyright">Derechos Reservados UPN - 2023</string>
-
+    <string name="logLblCopyright">Derechos Reservados Linux Poons - 2023</string>
     <string name="txt_nombreRegistro">Nombres</string>
     <string name="txt_nombreDetalle">Nombres</string>
     <string name="txt_numeroTarjeta">Numero Tarjeta</string>
@@ -80,6 +79,17 @@
     <string name="btnBorrar">Borrar</string>
     <string name="btnOrdenarCompra">Ordenar!</string>
     <string name="btnSeguirCompra">Seguir Comprando</string>
+    <string name="OlvLblTitulo">Recuperar Contraseña</string>
+    <string name="OlvtxtNuevaClave">Correo Electronico</string>
+    <string name="OlvtxtConfirmarClave">Confirmar Clave</string>
+    <string name="OlvbtnVolver">Volver</string>
+    <string name="OlvbtnActualizar">Actualizar</string>
+    <string name="pertxtUbicacion">Ubicación</string>
+    <string name="pertxtConfiguracion">Configuración</string>
+    <string name="pertxtRegistraMascota">Registrar Mascota</string>
+    <string name="pertxtNuestrosProductos">Nuestros Productos</string>
+    <string name="pertxtSolicitaServicio">Solicitar Servicio</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
