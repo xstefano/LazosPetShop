@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".actividades.OlvidasteContraActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/OlvLblTitulo"
+            android:gravity="center_horizontal"
+            android:layout_marginVertical="20dp"
+            android:textSize="22sp"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true">
+            <EditText
+                android:id="@+id/OlvtxtCorreoElectronico"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/OlvtxtNuevaClave"
+                android:layout_marginHorizontal="50dp"
+                android:layout_marginVertical="10dp"
+                android:inputType="textEmailAddress"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/BtnOlvVolver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:text="@string/OlvbtnVolver"
+                android:textAllCaps="false"
+                android:layout_weight="1"/>
+            <Button
+                android:id="@+id/BtnOlvActualizar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:text="@string/OlvbtnActualizar"
+                android:textAllCaps="false"
+                android:layout_weight="1"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

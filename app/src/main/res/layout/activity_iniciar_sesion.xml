@@ -101,14 +101,16 @@
             </Button>
         </LinearLayout>
 
-        <TextView
+        <Button
             android:id="@+id/logLblOlvidarContraseña"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginBottom="10dp"
-            android:text="@string/logLblOlvidarContraseña">
-        </TextView>
+            android:text="@string/logLblOlvidarContraseña"
+            android:background="@android:color/transparent"
+            android:textColor="#151515">
+        </Button>
 
         <TextView
             android:layout_width="match_parent"

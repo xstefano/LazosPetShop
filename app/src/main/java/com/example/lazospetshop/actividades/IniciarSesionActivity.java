@@ -25,11 +25,10 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 import cz.msebera.android.httpclient.message.BasicHeader;
 import cz.msebera.android.httpclient.protocol.HTTP;
 
-public class IniciarSesionActivity extends AppCompatActivity implements View.OnClickListener {
+public class  IniciarSesionActivity extends AppCompatActivity implements View.OnClickListener {
     private final static String urlController = "https://lazospetshop.azurewebsites.net/api/usuario/login";
     EditText txtCorreo, txtContraseña;
-    Button btnIniciar, btnRegistrate;
-    TextView lblOlvidarContraseña;
+    Button btnIniciar, btnRegistrate, btnOlvidasteContra;
 
 
     @Override
@@ -41,11 +40,11 @@ public class IniciarSesionActivity extends AppCompatActivity implements View.OnC
         txtContraseña = findViewById(R.id.logTxtContraseña);
         btnIniciar = findViewById(R.id.logBtnIniciar);
         btnRegistrate = findViewById(R.id.logBtnRegistrate);
-        lblOlvidarContraseña = findViewById(R.id.logLblOlvidarContraseña);
+        btnOlvidasteContra = findViewById(R.id.logLblOlvidarContraseña);
 
         btnIniciar.setOnClickListener(this);
         btnRegistrate.setOnClickListener(this);
-        lblOlvidarContraseña.setOnClickListener(this);
+        btnOlvidasteContra.setOnClickListener(this);
 
     }
 
@@ -65,6 +64,9 @@ public class IniciarSesionActivity extends AppCompatActivity implements View.OnC
                break;
            case R.id.logBtnRegistrate:
                registrate();
+               break;
+           case R.id.logLblOlvidarContraseña:
+               OlvidasteContra();
                break;
        }
     }
@@ -170,6 +172,12 @@ public class IniciarSesionActivity extends AppCompatActivity implements View.OnC
         finish();*/
         Intent iRegistrar = new Intent(this, RegistroActivity.class);
         startActivity(iRegistrar);
+        finish();
+    }
+
+    public void OlvidasteContra(){
+        Intent iOlvidaste = new Intent(this, OlvidasteContraActivity.class);
+        startActivity(iOlvidaste);
         finish();
     }
 

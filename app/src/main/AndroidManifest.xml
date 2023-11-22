@@ -16,6 +16,9 @@
         android:theme="@style/Theme.LazosPetShop"
         tools:targetApi="31">
         <activity
+            android:name=".actividades.OlvidasteContraActivity"
+            android:exported="false" />
+        <activity
             android:name=".actividades.CarritoActivity"
             android:exported="false" />
         <activity
