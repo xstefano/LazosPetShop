@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".actividades.ProductoJugueteActivity">
     <LinearLayout
+        android:id="@+id/layoutJuguete"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
+
+
         <fragment
             android:id="@+id/frmMenu"
             android:name="com.example.lazospetshop.fragmentos.MenuFragment"
@@ -19,162 +21,12 @@
             tools:layout="@layout/fragment_menu"></fragment>
 
         <TextView
-            android:layout_width="145dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="130dp"
-            android:layout_marginEnd="240dp"
-            android:gravity="start"
+            android:gravity="center"
             android:text="Juguetes"
-            android:textSize="30sp"></TextView>
+            android:textSize="30sp">
+        </TextView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="116dp"
-            android:layout_marginHorizontal="50dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:src="@drawable/ju1" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:src="@drawable/ju2" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnJuguete1"
-                android:layout_width="178dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:text="@string/btnJug1"
-                android:textAllCaps="false"
-                android:textSize="15sp"></Button>
-
-            <Button
-                android:id="@+id/btnJuguete2"
-                android:layout_width="177dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:text="@string/btnJug2"
-                android:textAllCaps="false"
-                android:textSize="15sp"></Button>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="116dp"
-            android:layout_marginHorizontal="50dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:src="@drawable/ju3" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:src="@drawable/ju4" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnJuguete3"
-                android:layout_width="192dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:text="@string/btnJug3"
-                android:textAllCaps="false"
-                android:textSize="15sp"></Button>
-
-            <Button
-                android:id="@+id/btnJuguete4"
-                android:layout_width="170dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:text="@string/btnJug4"
-                android:textAllCaps="false"
-                android:textSize="15sp"></Button>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="116dp"
-            android:layout_marginHorizontal="50dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:src="@drawable/ju5" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:src="@drawable/ju6" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnJuguete5"
-                android:layout_width="178dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:text="@string/btnJug5"
-                android:textAllCaps="false"
-                android:textSize="15sp"></Button>
-
-            <Button
-                android:id="@+id/btnJuguete6"
-                android:layout_width="170dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:text="@string/btnJug6"
-                android:textAllCaps="false"
-                android:textSize="15sp"></Button>
-        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

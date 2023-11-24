@@ -11,8 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.Space;
 import android.widget.TextView;
 
 import com.example.lazospetshop.R;
@@ -24,6 +22,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -34,12 +33,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 public class ComidaActivity extends AppCompatActivity {
 
     private LinearLayout lineasLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,24 +53,29 @@ public class ComidaActivity extends AppCompatActivity {
         @Override
         protected List<Producto> doInBackground(String... urls) {
             List<Producto> listaProductos = new ArrayList<>();
+            HttpURLConnection urlConnection = null;
+            BufferedReader bufferedReader = null;
 
             try {
                 URL url = new URL(urls[0]);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection = (HttpURLConnection) url.openConnection();
 
-                try {
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                    StringBuilder stringBuilder = new StringBuilder();
+                InputStream inputStream = urlConnection.getInputStream();
+                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
-                    String line;
-                    while ((line = bufferedReader.readLine()) != null) {
-                        stringBuilder.append(line).append("\n");
-                    }
+                StringBuilder stringBuilder = new StringBuilder();
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(line).append("\n");
+                }
 
-                    JSONArray jsonArray = new JSONArray(stringBuilder.toString());
+                JSONArray jsonArray = new JSONArray(stringBuilder.toString());
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonProducto = jsonArray.getJSONObject(i);
+                    int categoriaId = jsonProducto.getInt("categoriaId");
 
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonProducto = jsonArray.getJSONObject(i);
+                    // Filtrar por categoria
+                    if (categoriaId == 1) {
                         int id = jsonProducto.getInt("id");
                         String nombre = jsonProducto.getString("nombre");
                         double precio = jsonProducto.getDouble("precio");
@@ -81,13 +84,21 @@ public class ComidaActivity extends AppCompatActivity {
                         Producto producto = new Producto(id, nombre, precio, imagen);
                         listaProductos.add(producto);
                     }
-                } finally {
-                    urlConnection.disconnect();
                 }
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+                if (bufferedReader != null) {
+                    try {
+                        bufferedReader.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-
             return listaProductos;
         }
 
@@ -128,30 +139,19 @@ public class ComidaActivity extends AppCompatActivity {
                     productoLayout.setOrientation(LinearLayout.VERTICAL);
                     productoLayout.setGravity(Gravity.CENTER_HORIZONTAL);
 
-                    Bitmap imagenBitmap = decodeBase64(producto.getImagen());
-
                     ImageView imageView = new ImageView(this);
-                    int width = 450;
-                    int height = 450;
-                    imageView.setLayoutParams(new LinearLayout.LayoutParams(width, height));
-                    imageView.setImageBitmap(imagenBitmap);
+                    imageView.setLayoutParams(new LinearLayout.LayoutParams(450, 450));
+                    new CargarImagenTask(imageView).execute(producto.getImagen());
 
                     TextView nombreTextView = new TextView(this);
                     nombreTextView.setText(producto.getNombre());
                     nombreTextView.setGravity(Gravity.CENTER);
-                    nombreTextView.setPadding(0,0, 0, 20);
+                    nombreTextView.setPadding(0, 0, 0, 20);
 
-                    Button precioButton = new Button(this);
-                    precioButton.setText("S/. " + producto.getPrecio());
-                    precioButton.setGravity(Gravity.CENTER);
-                    precioButton.setTextColor(Color.WHITE);
-
-                    GradientDrawable gradientDrawable = new GradientDrawable();
-                    gradientDrawable.setColor(getResources().getColor(R.color.purple_500));
-                    gradientDrawable.setCornerRadius(20);
-
-                    precioButton.setBackground(gradientDrawable);
+                    Button precioButton = createPrecioButton(producto.getPrecio());
+                    precioButton.setTag(producto);
                     precioButton.setOnClickListener(this::handlePrecioButtonClick);
+
                     productoLayout.addView(imageView);
                     productoLayout.addView(nombreTextView);
                     productoLayout.addView(precioButton);
@@ -171,12 +171,48 @@ public class ComidaActivity extends AppCompatActivity {
         lineasLayout.addView(linearLayout);
     }
 
+    private Button createPrecioButton(double precio) {
+        Button precioButton = new Button(this);
+        precioButton.setText("S/. " + precio);
+        precioButton.setGravity(Gravity.CENTER);
+        precioButton.setTextColor(Color.WHITE);
 
-    private void handlePrecioButtonClick(View view) {
-        // Logica para manejar el clic del boton de precio
+        GradientDrawable gradientDrawable = new GradientDrawable();
+        gradientDrawable.setColor(getResources().getColor(R.color.purple_500));
+        gradientDrawable.setCornerRadius(20);
 
+        precioButton.setBackground(gradientDrawable);
+
+        return precioButton;
     }
 
+    private void handlePrecioButtonClick(View view) {
+        if (view.getTag() instanceof Producto) {
+            Producto producto = (Producto) view.getTag();
+            // Lógica para manejar el clic del botón de precio
+        }
+    }
+
+    private class CargarImagenTask extends AsyncTask<String, Void, Bitmap> {
+        private ImageView imageView;
+
+        public CargarImagenTask(ImageView imageView) {
+            this.imageView = imageView;
+        }
+
+        @Override
+        protected Bitmap doInBackground(String... params) {
+            String imagenBase64 = params[0];
+            return decodeBase64(imagenBase64);
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            if (bitmap != null) {
+                imageView.setImageBitmap(bitmap);
+            }
+        }
+    }
 
     private Bitmap decodeBase64(String base64String) {
         byte[] decodedBytes = Base64.decode(base64String, Base64.DEFAULT);

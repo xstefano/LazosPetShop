@@ -7,11 +7,13 @@
     tools:context=".actividades.ProductoRopaActivity">
 
     <LinearLayout
+        android:id="@+id/layoutRopa"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="-40dp"
+        tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
+
 
         <fragment
             android:id="@+id/frmMenu"
@@ -21,162 +23,12 @@
             tools:layout="@layout/fragment_menu"></fragment>
 
         <TextView
-            android:layout_width="145dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="150dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="240dp"
-            android:gravity="start"
+            android:gravity="center"
             android:text="Ropas"
-            android:textSize="30sp"></TextView>
+            android:textSize="30sp">
+        </TextView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="116dp"
-            android:layout_marginHorizontal="50dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:src="@drawable/rop1" />
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:src="@drawable/rop2" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnRopa1"
-                android:layout_width="178dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:text="@string/btnRop1"
-                android:textAllCaps="false"
-                android:textSize="15sp"></Button>
-
-            <Button
-                android:id="@+id/btnRopa2"
-                android:layout_width="177dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:text="@string/btnRop2"
-                android:textAllCaps="false"
-                android:textSize="15sp"></Button>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="116dp"
-            android:layout_marginHorizontal="50dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:src="@drawable/rop3" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:src="@drawable/rop4" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnRopa3"
-                android:layout_width="202dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:text="@string/btnRop3"
-                android:textAllCaps="false"
-                android:textSize="15sp"></Button>
-
-            <Button
-                android:id="@+id/btnRopa4"
-                android:layout_width="170dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:text="@string/btnRop4"
-                android:textAllCaps="false"
-                android:textSize="15sp"></Button>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="116dp"
-            android:layout_marginHorizontal="50dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:src="@drawable/rop5" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:src="@drawable/rop6" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnRopa5"
-                android:layout_width="178dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:text="@string/btnRop5"
-                android:textAllCaps="false"
-                android:textSize="15sp"></Button>
-
-            <Button
-                android:id="@+id/btnRopa6"
-                android:layout_width="170dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:text="@string/btnRop6"
-                android:textAllCaps="false"
-                android:textSize="15sp"></Button>
-        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
