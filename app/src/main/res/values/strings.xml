@@ -89,7 +89,11 @@
     <string name="pertxtRegistraMascota">Registrar Mascota</string>
     <string name="pertxtNuestrosProductos">Nuestros Productos</string>
     <string name="pertxtSolicitaServicio">Solicitar Servicio</string>
-
+    <string name="CfgLblTitulo">Configuración</string>
+    <string name="CfgtxtNuevaClave">Nueva Clave</string>
+    <string name="CfgtxtConfirmarClave">Confirmar Clave</string>
+    <string name="CfgbtnCerrarSesion">Cerrar Sesion</string>
+    <string name="CfgbtnActualizar">Actualizar</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

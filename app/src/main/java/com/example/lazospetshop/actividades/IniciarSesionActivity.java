@@ -118,9 +118,10 @@ public class  IniciarSesionActivity extends AppCompatActivity implements View.On
                             user.setImagen(jsonArray.getJSONObject(0).getString("imagen"));
 
                             Toast.makeText(getApplicationContext(),"Usuario logeado!",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),user.getId() + "",Toast.LENGTH_SHORT).show();
                             finish();
                             perfilActivity = new Intent(getApplicationContext(), PerfilActivity.class);
-                            perfilActivity.putExtra("nombre", user.getNombres());
+                            perfilActivity.putExtra("id", user.getId() + "");
                             startActivity(perfilActivity);
                         }
                     }
