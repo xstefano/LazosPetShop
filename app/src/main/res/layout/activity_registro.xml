@@ -29,13 +29,14 @@
             </TextView>
 
             <ImageView
+                android:id="@+id/imageView"
                 android:layout_width="234dp"
                 android:layout_height="150dp"
                 android:layout_marginHorizontal="90dp"
                 android:src="@drawable/foto" />
 
             <Button
-                android:id="@+id/btnSaludar"
+                android:id="@+id/btnSubirImagen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="130dp"
