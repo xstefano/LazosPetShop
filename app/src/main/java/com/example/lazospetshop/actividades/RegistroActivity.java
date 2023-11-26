@@ -184,7 +184,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
             jsonParams.put("correo",txtCorreo.getText().toString());
             jsonParams.put("contrasena",hash.StringToHash(txtContrasena.getText().toString(),"SHA1"));
             jsonParams.put("numeroDocumento",txtNumeroDocumento.getText().toString());
-            jsonParams.put("tipoDocumentoId","1");//String.valueOf(cboDocumento.getSelectedItemPosition()));
+            jsonParams.put("tipoDocumentoId",String.valueOf(cboDocumento.getSelectedItemPosition()));//String.valueOf(cboDocumento.getSelectedItemPosition()));
             rbtSexo = rgrSexo.getCheckedRadioButtonId();
 
             if(rbtSexo == R.id.rbFemenino){
