@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <fragment
+            android:id="@+id/frmMenu"
+            android:name="com.example.lazospetshop.fragmentos.MenuFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_menu">
+
+        </fragment>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/CfgLblTitulo"
+            android:gravity="center_horizontal"
+            android:layout_marginVertical="20dp"
+            android:textSize="22sp"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true">
+            <EditText
+                android:id="@+id/CfgtxtNuevaClave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/CfgtxtNuevaClave"
+                android:layout_marginHorizontal="50dp"
+                android:layout_marginVertical="10dp"
+                android:inputType="textPassword"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true">
+            <EditText
+                android:id="@+id/CfgtxtConfirmarClave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/CfgtxtConfirmarClave"
+                android:layout_marginHorizontal="50dp"
+                android:layout_marginVertical="10dp"
+                android:inputType="textPassword"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/CfgBtnCerrarSesion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:text="@string/CfgbtnCerrarSesion"
+                android:textAllCaps="false"
+                android:layout_weight="1"/>
+            <Button
+                android:id="@+id/CfgBtnActualizar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:text="@string/CfgbtnActualizar"
+                android:textAllCaps="false"
+                android:layout_weight="1"/>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

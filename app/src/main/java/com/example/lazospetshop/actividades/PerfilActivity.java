@@ -3,17 +3,36 @@ package com.example.lazospetshop.actividades;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import android.os.AsyncTask;
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import com.example.lazospetshop.R;
 
 public class PerfilActivity extends AppCompatActivity implements View.OnClickListener  {
 
-    Button btnProductos,btnServicios,btnMascota;
+    Button btnProductos,btnServicios,btnMascota, btnConfiguracion, btnUbicacion;
     TextView lblSaludo;
+
+    ImageView imaUsuario;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,11 +40,24 @@ public class PerfilActivity extends AppCompatActivity implements View.OnClickLis
         btnProductos = findViewById(R.id.perNuestrosProductos);
         btnServicios = findViewById(R.id.perSolicitaServicios);
         btnMascota = findViewById(R.id.perRegistrarMascota);
+        btnConfiguracion = findViewById(R.id.perSolicitaConfig);
+        btnUbicacion = findViewById(R.id.perUbicacion);
         lblSaludo = findViewById(R.id.perLblSaludo);
-        lblSaludo.setText("Bienvenido " + getIntent().getStringExtra("nombre"));
+        imaUsuario = findViewById(R.id.imaUsuario);
         btnProductos.setOnClickListener(this);
         btnServicios.setOnClickListener(this);
         btnMascota.setOnClickListener(this);
+        btnConfiguracion.setOnClickListener(this);
+        btnUbicacion.setOnClickListener(this);
+
+        String idString = getIntent().getStringExtra("id");
+        if (idString != null) {
+            int idUsuario = Integer.parseInt(idString);
+            obtenerInformacionUsuario(idUsuario);
+        } else {
+            // Manejo de caso en que el "id" es nulo
+            // Puedes mostrar un mensaje de error, iniciar otra actividad, etc.
+        }
     }
 
     @Override
@@ -45,6 +77,79 @@ public class PerfilActivity extends AppCompatActivity implements View.OnClickLis
                 Intent iMascota = new Intent(this, RegistraMascotaActivity.class);
                 startActivity(iMascota);
                 break;
+            /*case R.id.perUbicacion:
+                //Intent iUbicacion = new Intent(this, RegistraMascotaActivity.class);
+                //startActivity(iUbicacion);
+                break;*/
+            case R.id.perSolicitaConfig:
+                Intent iConfiguracion = new Intent(this, ConfiguracionActivity.class);
+                startActivity(iConfiguracion);
+                break;
         }
+    }
+
+    private void obtenerInformacionUsuario(int idUsuario) {
+        String url = "https://lazospetshop.azurewebsites.net/api/usuario/obtenerporid/" + idUsuario;
+        System.out.println(idUsuario);
+        new AsyncTask<String, Void, String>() {
+            @Override
+            protected String doInBackground(String... params) {
+                try {
+                    URL url = new URL(params[0]);
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+                    // Configura la solicitud
+                    connection.setRequestMethod("GET");
+                    connection.connect();
+
+                    // Lee la respuesta
+                    InputStream inputStream = connection.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line).append("\n");
+                    }
+
+                    inputStream.close();
+                    return stringBuilder.toString();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(String jsonResponse) {
+                super.onPostExecute(jsonResponse);
+
+                if (jsonResponse != null) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(jsonResponse);
+
+                        // Obtén los valores del usuario desde el JSON
+                        String nombres = jsonObject.getString("nombres");
+                        String apellidos = jsonObject.getString("apellidos");
+                        String correo = jsonObject.getString("correo");
+                        // ... obtén otros valores
+
+                        // Muestra la información del usuario en tu actividad
+                        lblSaludo.setText("Bienvenido " + nombres + " " + apellidos);
+                        // ... configura otros TextView con la información obtenida
+
+                        // Muestra la imagen (asumiendo que la imagen está en Base64)
+                        String base64Image = jsonObject.getString("imagen");
+                        // Convierte la cadena Base64 a un formato que ImageView pueda entender
+                        byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
+                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                        imaUsuario.setImageBitmap(decodedByte);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.execute(url);
     }
 }
