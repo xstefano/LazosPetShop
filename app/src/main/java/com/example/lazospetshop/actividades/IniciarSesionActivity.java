@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.lazospetshop.R;
 import com.example.lazospetshop.clases.Hash;
 import com.example.lazospetshop.clases.Usuario;
+import com.example.lazospetshop.sqlite.LazosPetShop;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.BaseJsonHttpResponseHandler;
 
@@ -35,7 +36,8 @@ public class  IniciarSesionActivity extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_iniciar_sesion);
-
+        LazosPetShop bd = new LazosPetShop(getApplicationContext());
+        bd.eliminarRegistros();
         txtCorreo = findViewById(R.id.logTxtCorreo);
         txtContraseña = findViewById(R.id.logTxtContraseña);
         btnIniciar = findViewById(R.id.logBtnIniciar);
@@ -60,6 +62,7 @@ public class  IniciarSesionActivity extends AppCompatActivity implements View.On
         */
        switch(view.getId()){
            case R.id.logBtnIniciar:
+
                login();
                break;
            case R.id.logBtnRegistrate:
@@ -105,6 +108,7 @@ public class  IniciarSesionActivity extends AppCompatActivity implements View.On
                         "tipoDocumentoId": 0,
                         "numeroDocumento": "string",
                         "generoId": 0*/
+                        LazosPetShop bd = new LazosPetShop(getApplicationContext());
                         JSONArray jsonArray = new JSONArray(rawJsonResponse);
                         if(jsonArray.length() > 0){
                             user.setId(jsonArray.getJSONObject(0).getInt("id"));
@@ -117,8 +121,14 @@ public class  IniciarSesionActivity extends AppCompatActivity implements View.On
                             user.setGeneroId(jsonArray.getJSONObject(0).getInt("genero"));
                             user.setImagen(jsonArray.getJSONObject(0).getString("imagen"));
 
+                            bd.agregarUsuario(user.getId(),user.getCorreo(),user.getContraseña());
+                            //public boolean agregarCarrito(int idUsuario, String metodoPago, String fechaPago, double montoTotal)
+                            String fechaPago = bd.obtenerFechaActual();
+                            bd.agregarCarrito(user.getId(),"",fechaPago,0);
+
+
                             Toast.makeText(getApplicationContext(),"Usuario logeado!",Toast.LENGTH_SHORT).show();
-                            Toast.makeText(getApplicationContext(),user.getId() + "",Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(),user.getId() + "",Toast.LENGTH_SHORT).show();
                             finish();
                             perfilActivity = new Intent(getApplicationContext(), PerfilActivity.class);
                             perfilActivity.putExtra("id", user.getId() + "");
