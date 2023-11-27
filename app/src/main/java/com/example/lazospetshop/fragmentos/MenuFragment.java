@@ -1,5 +1,6 @@
 package com.example.lazospetshop.fragmentos;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.lazospetshop.R;
+import com.example.lazospetshop.actividades.CarritoActivity;
+import com.example.lazospetshop.actividades.PerfilActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,12 +70,22 @@ public class MenuFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
         ImageButton imbBotonVolver = view.findViewById(R.id.frgMenImbBack);
+        ImageButton imbCarrito = view.findViewById(R.id.frgMenImbCarrito);
         imbBotonVolver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (getActivity() != null) {
                     getActivity().onBackPressed();
                 }
+            }
+        });
+        imbCarrito.setOnClickListener(new View.OnClickListener() {
+            Intent carritoActivity = null;
+            @Override
+            public void onClick(View v) {
+                //getActivity().finish();
+                carritoActivity = new Intent(getActivity().getApplicationContext(), CarritoActivity.class);
+                startActivity(carritoActivity);
             }
         });
         return  view;

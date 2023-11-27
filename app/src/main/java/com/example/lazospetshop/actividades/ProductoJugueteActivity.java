@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.lazospetshop.R;
 import com.example.lazospetshop.clases.Producto;
+import com.example.lazospetshop.sqlite.LazosPetShop;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,6 +34,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class ProductoJugueteActivity extends AppCompatActivity {
 
@@ -190,6 +192,12 @@ public class ProductoJugueteActivity extends AppCompatActivity {
         if (view.getTag() instanceof Producto) {
             Producto producto = (Producto) view.getTag();
             // Lógica para manejar el clic del botón de precio
+            LazosPetShop bd = new LazosPetShop(getApplicationContext());
+            Integer idUsuario = bd.obtenerIdUsuario();
+            Integer idCarrito = bd.obtenerIdCarrito(idUsuario);
+            bd.agregarDetalleProducto(idCarrito,1,producto.getPrecio(),producto.getId(), producto.getNombre());
+            bd.actualizarMontoTotalCarrito(idCarrito);
+            Toast.makeText(getApplicationContext(),producto.getNombre()+" agregado!", Toast.LENGTH_SHORT).show();
         }
     }
 
