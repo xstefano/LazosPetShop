@@ -197,13 +197,6 @@ public class ProductoRopaActivity extends AppCompatActivity {
             Integer idCarrito = bd.obtenerIdCarrito(idUsuario);
             bd.agregarDetalleProducto(idCarrito,1,producto.getPrecio(),producto.getId(), producto.getNombre());
             bd.actualizarMontoTotalCarrito(idCarrito);
-
-            /*Carrito car = bd.obtenerCarritoPorUsuario(idUsuario);
-
-            for (ProductosCarrito prod:car.getDetalle()) {
-                Toast.makeText(getApplicationContext(),prod.getNombreProducto() + " " + prod.getCantidad() + " "+ prod.getSubTotal(),Toast.LENGTH_SHORT).show();
-            }
-            Toast.makeText(getApplicationContext(),car.getMontoTotal()+"",Toast.LENGTH_SHORT).show();*/
             Toast.makeText(getApplicationContext(),producto.getNombre()+" agregado!", Toast.LENGTH_SHORT).show();
         }
     }

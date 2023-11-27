@@ -124,7 +124,7 @@ public class  IniciarSesionActivity extends AppCompatActivity implements View.On
                             bd.agregarUsuario(user.getId(),user.getCorreo(),user.getContraseña());
                             //public boolean agregarCarrito(int idUsuario, String metodoPago, String fechaPago, double montoTotal)
                             String fechaPago = bd.obtenerFechaActual();
-                            bd.agregarCarrito(user.getId(),"",fechaPago,0);
+                            bd.agregarCarrito(user.getId(),"E",fechaPago,0);
 
 
                             Toast.makeText(getApplicationContext(),"Usuario logeado!",Toast.LENGTH_SHORT).show();
