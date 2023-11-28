@@ -30,7 +30,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="240dp"
                 android:layout_marginBottom="10dp"
-                android:gravity="start"
+                android:gravity="center"
                 android:text="@string/app_detallepago"
                 android:textSize="35sp"></TextView>
             <LinearLayout
@@ -83,7 +83,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="start"
                         android:layout_marginStart="10dp"
-                        android:layout_marginVertical="2dp"
+                        android:layout_marginVertical="20dp"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:text="@string/txt_apellidosRegistro">
@@ -117,7 +117,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="start"
                         android:layout_marginStart="10dp"
-                        android:layout_marginVertical="2dp"
+                        android:layout_marginVertical="20dp"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:text="@string/txt_tipoDocumentoRegistro">
@@ -145,7 +145,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="start"
                         android:layout_marginStart="10dp"
-                        android:layout_marginVertical="2dp"
+                        android:layout_marginVertical="20dp"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:text="@string/txt_numeroDocumentoRegistro">
@@ -181,7 +181,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:gravity="start"
-                        android:text="Metodo de pago"
+                        android:text="Método de pago"
                         android:textSize="20sp"
                         android:textStyle="bold"></TextView>
 
@@ -342,9 +342,9 @@
 
                         <EditText
                             android:id="@+id/txtNombreTitular"
-                            android:layout_width="251dp"
+                            android:layout_width="230dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="20dp"
+                            android:layout_marginHorizontal="38dp"
                             android:layout_alignParentEnd="true"
                             android:backgroundTint="@color/white"
                             android:hint="@string/detTxtHintNombreTitular"

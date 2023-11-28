@@ -6,7 +6,7 @@
     <string name="logTxtHintCorreo">Ingrese su correo</string>
     <string name="logTxtHintContraseña">Ingrese su contraseña</string>
     <string name="logBtnIniciar">Iniciar</string>
-    <string name="logBtnRegistrate">Registrate</string>
+    <string name="logBtnRegistrate">Regístrate</string>
     <string name="logChkRecordar">Recordar Clave</string>
     <string name="logLblOlvidarContraseña">¿Olvidaste la contraseña?</string>
     <string name="perLblSaludo">Bienvenido</string>
@@ -18,15 +18,15 @@
     <string name="logLblCopyright">Derechos Reservados Linux Poons - 2023</string>
     <string name="txt_nombreRegistro">Nombres</string>
     <string name="txt_nombreDetalle">Nombres</string>
-    <string name="txt_numeroTarjeta">Numero Tarjeta</string>
+    <string name="txt_numeroTarjeta">Número Tarjeta</string>
     <string name="txt_apellidosRegistro">Apellidos</string>
     <string name="txt_tipoDocumentoRegistro">Tipo Documento</string>
-    <string name="txt_numeroDocumentoRegistro">Numero Documento</string>
-    <string name="txt_generoRegistro">Genero</string>
+    <string name="txt_numeroDocumentoRegistro">Número Documento</string>
+    <string name="txt_generoRegistro">Género</string>
     <string name="txt_correoRegistro">Correo</string>
     <string name="txt_contraRegistro">Contraseña</string>
     <string name="txt_contrarepetirRegistro">Repetir Contraseña</string>
-    <string name="txt_nombretitular">Nombre Titular</string>
+    <string name="txt_nombretitular">Nombre del Titular</string>
     <string name="regTxtHintNombre">Ingrese sus Nombres</string>
     <string name="regTxtHintApellido">Ingrese sus Apellidos</string>
     <string name="regTxtHintnumeroDocumento">Ingrese Documento</string>
@@ -37,7 +37,7 @@
     <string name="rbfemenino">Femenino</string>
     <string name="rbnoSinDefinir">Sin Definir</string>
     <string name="rbEfectivo">Efectivo</string>
-    <string name="rbnTarjeta">Tarjeta credito/debito</string>
+    <string name="rbnTarjeta">Tarjeta crédito/débito</string>
     <string name="rbMacho">Macho</string>
     <string name="rbHembra">Hembra</string>
     <string name="btnRegistrarRegistro">Registrarse</string>
@@ -46,7 +46,7 @@
     <string name="detTxtHintNombre">Ingrese sus Nombres</string>
     <string name="detTxtHintApellido">Ingrese sus Apellidos</string>
     <string name="detTxtHintnumeroDocumento">Ingrese Documento</string>
-    <string name="detTxtHintNumeroTarjeta">Ingrese numero tarjeta</string>
+    <string name="detTxtHintNumeroTarjeta">Ingrese número tarjeta</string>
     <string name="detTxtHintCcv">CCV</string>
     <string name="detTxtHintVencimientoTarjeta">MM/YYYY</string>
     <string name="detTxtHintNombreTitular">Ingrese Nombre Titular</string>
@@ -80,7 +80,7 @@
     <string name="btnOrdenarCompra">Ordenar!</string>
     <string name="btnSeguirCompra">Seguir Comprando</string>
     <string name="OlvLblTitulo">Recuperar Contraseña</string>
-    <string name="OlvtxtNuevaClave">Correo Electronico</string>
+    <string name="OlvtxtNuevaClave">Correo Electrónico</string>
     <string name="OlvtxtConfirmarClave">Confirmar Clave</string>
     <string name="OlvbtnVolver">Volver</string>
     <string name="OlvbtnActualizar">Actualizar</string>
@@ -92,8 +92,10 @@
     <string name="CfgLblTitulo">Configuración</string>
     <string name="CfgtxtNuevaClave">Nueva Clave</string>
     <string name="CfgtxtConfirmarClave">Confirmar Clave</string>
-    <string name="CfgbtnCerrarSesion">Cerrar Sesion</string>
+    <string name="CfgbtnCerrarSesion">Cerrar Sesión</string>
     <string name="CfgbtnActualizar">Actualizar</string>
+    <string name="TitulotxtMascota">Registra Mascota</string>
+    <string name="BtnSubirImagen">Subir Imagen</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
