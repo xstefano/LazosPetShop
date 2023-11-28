@@ -62,7 +62,6 @@ public class PerfilActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        System.out.println("entre");
         switch(view.getId()){
             case R.id.perNuestrosProductos:
                 Intent iProductos = new Intent(this, ProductosActivity.class);
@@ -77,10 +76,10 @@ public class PerfilActivity extends AppCompatActivity implements View.OnClickLis
                 Intent iMascota = new Intent(this, RegistraMascotaActivity.class);
                 startActivity(iMascota);
                 break;
-            /*case R.id.perUbicacion:
-                //Intent iUbicacion = new Intent(this, RegistraMascotaActivity.class);
-                //startActivity(iUbicacion);
-                break;*/
+            case R.id.perUbicacion:
+                Intent iUbicacion = new Intent(this, UbicacionActivity.class);
+                startActivity(iUbicacion);
+                break;
             case R.id.perSolicitaConfig:
                 Intent iConfiguracion = new Intent(this, ConfiguracionActivity.class);
                 startActivity(iConfiguracion);
