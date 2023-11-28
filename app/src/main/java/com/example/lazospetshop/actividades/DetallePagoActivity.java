@@ -2,6 +2,7 @@ package com.example.lazospetshop.actividades;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,8 +11,11 @@ import android.widget.Toast;
 
 import com.example.lazospetshop.R;
 import com.example.lazospetshop.clases.Carrito;
+import com.example.lazospetshop.clases.CarritoRespuesta;
 import com.example.lazospetshop.clases.ProductosCarrito;
 import com.example.lazospetshop.sqlite.LazosPetShop;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.BaseJsonHttpResponseHandler;
 
@@ -52,7 +56,7 @@ public class DetallePagoActivity extends AppCompatActivity implements View.OnCli
     }
     private void pagar(){
         AsyncHttpClient ahcRegistrarCarrito = new AsyncHttpClient();
-        AsyncHttpClient ahcRegistrarDetalle = new AsyncHttpClient();
+
         JSONObject jsonParams = new JSONObject();
 
         // Obtén la fecha y hora actual en formato UTC
@@ -67,8 +71,8 @@ public class DetallePagoActivity extends AppCompatActivity implements View.OnCli
         LazosPetShop bd = new LazosPetShop(getApplicationContext());
         Integer idUsuario = bd.obtenerIdUsuario();
         Integer idCarrito = bd.obtenerIdCarrito(idUsuario);
-        Carrito carrito = bd.obtenerCarritoPorUsuario(idUsuario);
-        Toast.makeText(getApplicationContext(),formattedDateTime+"",Toast.LENGTH_SHORT).show();
+        final Carrito carrito = bd.obtenerCarritoPorUsuario(idUsuario);
+
         try{
             jsonParams.put("idUsuario",carrito.getIdUsuario()+"");
             jsonParams.put("fechaCreacion",formattedDateTime);
@@ -86,16 +90,62 @@ public class DetallePagoActivity extends AppCompatActivity implements View.OnCli
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String rawJsonResponse, Object response) {
-                Toast.makeText(getApplicationContext(),"Procesando compra!",Toast.LENGTH_SHORT).show();
+
                 if((statusCode+"").equals("200")){
-                    Toast.makeText(getApplicationContext(),"Carrito registrado!",Toast.LENGTH_SHORT).show();
-                    /*finish();
-                    iniciarSecion = new Intent(getApplicationContext(), IniciarSesionActivity.class);
-                    startActivity(iniciarSecion);*/
-                    /*for (ProductosCarrito deta:carrito.getDetalle()) {
-                        //JSONObject jsonParamsDetalle = new JSONObject();
-                        Toast.makeText(getApplicationContext(),deta.getNombreProducto(),Toast.LENGTH_SHORT).show();
-                    }*/
+                    Toast.makeText(getApplicationContext(),"Pago exitoso!",Toast.LENGTH_SHORT).show();
+                    // Parsea la cadena JSON en un objeto Carrito
+                    try {
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        CarritoRespuesta carritoRespuesta = objectMapper.readValue(rawJsonResponse, CarritoRespuesta.class);
+                        //Toast.makeText(getApplicationContext(),carritoRespuesta.getId()+"",Toast.LENGTH_SHORT).show();
+                        for (ProductosCarrito deta:carrito.getDetalle()) {
+                            JSONObject jsonParamsDetalle = new JSONObject();
+                            try{
+                                jsonParamsDetalle.put("carritoId",carritoRespuesta.getId());
+                                jsonParamsDetalle.put("productoId",deta.getIdProducto());
+                                jsonParamsDetalle.put("cantidad",deta.getCantidad());
+                                jsonParamsDetalle.put("precioUnitario",deta.getPrecioUnitario());
+                                jsonParamsDetalle.put("subTotal",deta.getSubTotal());
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            AsyncHttpClient ahcRegistrarDetalle = new AsyncHttpClient();
+                            StringEntity entityDetalle = new StringEntity(jsonParamsDetalle.toString(), "UTF-8");
+                            entityDetalle.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+
+                            ahcRegistrarDetalle.post(null,urlControllerDetalle,  entityDetalle, "application/json", new BaseJsonHttpResponseHandler() {
+
+                                @Override
+                                public void onSuccess(int statusCode, Header[] headers, String rawJsonResponse, Object response) {
+                                    Intent perfilActivity = null;
+                                    if((statusCode+"").equals("200")) {
+                                        finish();
+                                        perfilActivity = new Intent(getApplicationContext(), PerfilActivity.class);
+                                        startActivity(perfilActivity);
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(int statusCode, Header[] headers, Throwable throwable, String rawJsonData, Object errorResponse) {
+                                    Toast.makeText(getApplicationContext(),statusCode+"",Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                protected Object parseResponse(String rawJsonData, boolean isFailure) throws Throwable {
+                                    return null;
+                                }
+                            });
+
+                            //Toast.makeText(getApplicationContext(),deta.getNombreProducto(),Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
+
+
 
 
                 }
