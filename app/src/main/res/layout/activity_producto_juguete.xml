@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="16dp"
     tools:context=".actividades.ProductoJugueteActivity">
-    <LinearLayout
-        android:id="@+id/layoutJuguete"
+
+    <fragment
+        android:id="@+id/frmMenu"
+        android:name="com.example.lazospetshop.fragmentos.MenuFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_menu" />
+
+    <TextView
+        android:id="@+id/textViewTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Juguetes"
+        android:textSize="30sp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/frmMenu"
+        android:layout_marginTop="2dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewProductos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
-
-
-        <fragment
-            android:id="@+id/frmMenu"
-            android:name="com.example.lazospetshop.fragmentos.MenuFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout="@layout/fragment_menu"></fragment>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Juguetes"
-            android:textSize="30sp">
-        </TextView>
-
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_below="@id/textViewTitulo"
+        android:layout_marginTop="16dp" />
+</RelativeLayout>

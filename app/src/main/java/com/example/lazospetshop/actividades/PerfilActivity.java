@@ -6,14 +6,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +22,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import com.example.lazospetshop.R;
 
@@ -90,6 +91,7 @@ public class PerfilActivity extends AppCompatActivity implements View.OnClickLis
     private void obtenerInformacionUsuario(int idUsuario) {
         String url = "https://lazospetshop.azurewebsites.net/api/usuario/obtenerporid/" + idUsuario;
         System.out.println(idUsuario);
+
         new AsyncTask<String, Void, String>() {
             @Override
             protected String doInBackground(String... params) {
@@ -137,12 +139,9 @@ public class PerfilActivity extends AppCompatActivity implements View.OnClickLis
                         lblSaludo.setText("Bienvenido " + nombres + " " + apellidos);
                         // ... configura otros TextView con la información obtenida
 
-                        // Muestra la imagen (asumiendo que la imagen está en Base64)
-                        String base64Image = jsonObject.getString("imagen");
-                        // Convierte la cadena Base64 a un formato que ImageView pueda entender
-                        byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
-                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                        imaUsuario.setImageBitmap(decodedByte);
+                        // Muestra la imagen directamente desde la URL
+                        String imageUrl = jsonObject.getString("imagen");
+                        new CargarImagenTask(imaUsuario).execute(imageUrl);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -150,5 +149,36 @@ public class PerfilActivity extends AppCompatActivity implements View.OnClickLis
                 }
             }
         }.execute(url);
+    }
+
+    public class CargarImagenTask extends AsyncTask<String, Void, Bitmap> {
+        private ImageView imageView;
+
+        public CargarImagenTask(ImageView imageView) {
+            this.imageView = imageView;
+        }
+
+        @Override
+        protected Bitmap doInBackground(String... params) {
+            String imageUrl = params[0];
+            try {
+                return Glide.with(imageView.getContext())
+                        .asBitmap()
+                        .load(imageUrl)
+                        .apply(new RequestOptions().override(450, 450))
+                        .submit()
+                        .get();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            if (bitmap != null) {
+                imageView.setImageBitmap(bitmap);
+            }
+        }
     }
 }
