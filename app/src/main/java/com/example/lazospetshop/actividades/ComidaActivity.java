@@ -201,7 +201,7 @@ public class ComidaActivity extends AppCompatActivity {
         }
     }
 
-    private class CargarImagenTask extends AsyncTask<String, Void, Bitmap> {
+    public class CargarImagenTask extends AsyncTask<String, Void, Bitmap> {
         private ImageView imageView;
 
         public CargarImagenTask(ImageView imageView) {
@@ -210,8 +210,18 @@ public class ComidaActivity extends AppCompatActivity {
 
         @Override
         protected Bitmap doInBackground(String... params) {
-            String imagenBase64 = params[0];
-            return decodeBase64(imagenBase64);
+            String imageUrl = params[0];
+            try {
+                URL url = new URL(imageUrl);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setDoInput(true);
+                connection.connect();
+                InputStream input = connection.getInputStream();
+                return BitmapFactory.decodeStream(input);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
         }
 
         @Override
@@ -220,10 +230,5 @@ public class ComidaActivity extends AppCompatActivity {
                 imageView.setImageBitmap(bitmap);
             }
         }
-    }
-
-    private Bitmap decodeBase64(String base64String) {
-        byte[] decodedBytes = Base64.decode(base64String, Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
 }
