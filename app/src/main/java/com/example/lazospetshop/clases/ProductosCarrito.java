@@ -8,7 +8,9 @@ public class ProductosCarrito {
     private double precioUnitario;
     private double subTotal;
 
-    public ProductosCarrito(int idDetalle,int idProducto,String nombreProducto,int cantidad,double precioUnitario, double subTotal,int idCarrito){
+    private String imagen;
+
+    public ProductosCarrito(int idDetalle,int idProducto,String nombreProducto,int cantidad,double precioUnitario, double subTotal,int idCarrito, String imagen){
         this.idDetalle = idDetalle;
         this.idProducto = idProducto;
         this.setNombreProducto(nombreProducto);
@@ -16,6 +18,7 @@ public class ProductosCarrito {
         this.precioUnitario = precioUnitario;
         this.subTotal = subTotal;
         this.idCarrito = idCarrito;
+        this.imagen = imagen;
     }
     public ProductosCarrito(){
 
@@ -75,4 +78,8 @@ public class ProductosCarrito {
     public void setIdCarrito(int idCarrito) {
         this.idCarrito = idCarrito;
     }
+
+    public void setImagen(String imagen) { this.imagen = imagen; }
+
+    public String getImagen() { return imagen; }
 }

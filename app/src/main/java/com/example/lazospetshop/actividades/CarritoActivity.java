@@ -1,26 +1,66 @@
 package com.example.lazospetshop.actividades;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.lazospetshop.R;
+import com.example.lazospetshop.adaptadores.ProductoCarritoAdapter;
+import com.example.lazospetshop.clases.ProductosCarrito;
+import com.example.lazospetshop.sqlite.LazosPetShop;
+
+import java.util.List;
 
 public class CarritoActivity extends AppCompatActivity implements View.OnClickListener {
+    LazosPetShop bd;
+    private RecyclerView recyclerView;
+    private ProductoCarritoAdapter adapter;
+    private List<ProductosCarrito> listaProductosCarrito;
 
-    Button btnVolCarrito,btnComprar;
+    private Button btnVolCarrito,btnComprar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carrito);
+
+        bd = new LazosPetShop(getApplicationContext());
+
         btnVolCarrito = findViewById(R.id.BtnSeguirCompra);
         btnComprar = findViewById(R.id.BtnOrdenarCompra);
 
         btnVolCarrito.setOnClickListener(this);
         btnComprar.setOnClickListener(this);
+
+        // Inicializar el RecyclerView y su adaptador
+        recyclerView = findViewById(R.id.recyclerViewCarrito);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        int idUsuario = obtenerIdUsuario();
+
+        int idCarrito = obtenerIdCarrito(idUsuario);
+
+        listaProductosCarrito = obtenerProductosCarrito(idCarrito);
+
+        // Configurar el adaptador
+        adapter = new ProductoCarritoAdapter(listaProductosCarrito, this);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private int obtenerIdUsuario() {
+        return bd.obtenerIdUsuario();
+    }
+
+    private int obtenerIdCarrito(int idUsuario) {
+        return bd.obtenerIdCarrito(idUsuario);
+    }
+
+    private List<ProductosCarrito> obtenerProductosCarrito(int idCarrito) {
+        return bd.obtenerProductosCarrito(idCarrito);
     }
 
     @Override

@@ -20,7 +20,7 @@ import java.util.Locale;
 
 public class LazosPetShop extends SQLiteOpenHelper{
     private static final String nombreBD = "LazosPetShop.db";
-    private static final int versionBD = 1;
+    private static final int versionBD = 2;
     private static final String createTableUsuario = "CREATE TABLE IF NOT EXISTS USUARIO (ID INTEGER, CORREO VARCHAR(255), CLAVE VARCHAR(255))";
     private static final String createTableCarrito =
             "CREATE TABLE IF NOT EXISTS Carrito (" +
@@ -38,6 +38,7 @@ public class LazosPetShop extends SQLiteOpenHelper{
                     "nombreProducto TEXT," +
                     "cantidad INTEGER," +
                     "PrecioUnitario REAL," +
+                    "imagen TEXT," +
                     "Subtotal REAL);";
     private static final String dropTableUsuario = "DROP TABLE IF EXISTS USUARIO";
     private static final String dropTableCarrito= "DROP TABLE IF EXISTS Carrito";
@@ -155,7 +156,7 @@ public class LazosPetShop extends SQLiteOpenHelper{
         return ret;
     }
     @SuppressLint("Range")
-    public boolean agregarDetalleProducto(int idCarrito, int cantidad, double precioUnitario, int idProducto,String nombreProducto) {
+    public boolean agregarDetalleProducto(int idCarrito, int cantidad, double precioUnitario, int idProducto,String nombreProducto, String imagen) {
         boolean ret = false;
         SQLiteDatabase db = getWritableDatabase();
 
@@ -187,11 +188,12 @@ public class LazosPetShop extends SQLiteOpenHelper{
                     // Si no existe, agregar un nuevo detalle de producto
                     ContentValues values = new ContentValues();
                     values.put("idCarrito", idCarrito);
-                    values.put("cantidad", cantidad);
-                    values.put("PrecioUnitario", precioUnitario);
-                    values.put("Subtotal", cantidad * precioUnitario);
                     values.put("idProducto", idProducto);
                     values.put("nombreProducto",nombreProducto);
+                    values.put("cantidad", cantidad);
+                    values.put("PrecioUnitario", precioUnitario);
+                    values.put("imagen", imagen);
+                    values.put("Subtotal", cantidad * precioUnitario);
 
                     // Insertar el nuevo detalle de producto en la tabla DetalleProducto
                     db.insert("DetalleProducto", null, values);
@@ -270,6 +272,42 @@ public class LazosPetShop extends SQLiteOpenHelper{
 
         return carrito;
     }
+
+    @SuppressLint("Range")
+    public void eliminarContenidoCarrito(int idCarrito) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        if (db != null) {
+            try {
+                db.beginTransaction();
+                db.delete("DetalleProducto", "idCarrito = ?", new String[]{String.valueOf(idCarrito)});
+                db.setTransactionSuccessful();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                db.endTransaction();
+                db.close();
+            }
+        }
+    }
+
+    @SuppressLint("Range")
+    public void eliminarContenidoDetalleProducto() {
+        SQLiteDatabase db = getWritableDatabase();
+
+        if (db != null) {
+            try {
+                db.beginTransaction();
+                db.delete("DetalleProducto", null, null);
+                db.setTransactionSuccessful();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                db.endTransaction();
+                db.close();
+            }
+        }
+    }
     @SuppressLint("Range")
     public int obtenerIdUsuario() {
         SQLiteDatabase db = getReadableDatabase();
@@ -313,22 +351,24 @@ public class LazosPetShop extends SQLiteOpenHelper{
 
             try {
                 // Consulta para obtener los productos del carrito con sus detalles
-                cursor = db.rawQuery("SELECT DP.idDetalleCarritoProducto, P.idProducto, P.nombre, DP.cantidad, " +
-                        "DP.PrecioUnitario, DP.Subtotal FROM DetalleProducto DP " +
-                        "INNER JOIN Producto P ON DP.idProducto = P.idProducto " +
-                        "WHERE DP.idCarrito = ?", new String[]{String.valueOf(idCarrito)});
+                cursor = db.rawQuery("SELECT idDetalleCarritoProducto, idProducto, nombreProducto, cantidad, " +
+                        "PrecioUnitario, imagen, Subtotal FROM DetalleProducto " +
+                        "WHERE idCarrito = ?", new String[]{String.valueOf(idCarrito)});
+
+
 
                 // Mover el cursor a través de los resultados
                 while (cursor != null && cursor.moveToNext()) {
                     int idDetalle = cursor.getInt(cursor.getColumnIndex("idDetalleCarritoProducto"));
                     int idProducto = cursor.getInt(cursor.getColumnIndex("idProducto"));
-                    String nombreProducto = cursor.getString(cursor.getColumnIndex("nombre"));
+                    String nombreProducto = cursor.getString(cursor.getColumnIndex("nombreProducto"));
                     int cantidad = cursor.getInt(cursor.getColumnIndex("cantidad"));
                     double precioUnitario = cursor.getDouble(cursor.getColumnIndex("PrecioUnitario"));
+                    String imagen = cursor.getString(cursor.getColumnIndex("imagen"));
                     double subtotal = cursor.getDouble(cursor.getColumnIndex("Subtotal"));
 
                     // Crear un objeto ProductoCarrito y agregarlo a la lista
-                    ProductosCarrito productoCarrito = new ProductosCarrito(idDetalle, idProducto, nombreProducto, cantidad, precioUnitario, subtotal,idCarrito);
+                    ProductosCarrito productoCarrito = new ProductosCarrito(idDetalle, idProducto, nombreProducto, cantidad, precioUnitario, subtotal,idCarrito, imagen);
                     listaProductos.add(productoCarrito);
                 }
             } catch (Exception e) {

@@ -50,6 +50,7 @@ public class DetallePagoActivity extends AppCompatActivity implements View.OnCli
             case R.id.btnPagar:
 
                 pagar();
+                limpiarCarritoYDetalle();
                 break;
         }
 
@@ -164,5 +165,14 @@ public class DetallePagoActivity extends AppCompatActivity implements View.OnCli
                 return null;
             }
         });
+    }
+
+    private void limpiarCarritoYDetalle(){
+        LazosPetShop bd = new LazosPetShop(getApplicationContext());
+        Integer idUsuario = bd.obtenerIdUsuario();
+        Integer idCarrito = bd.obtenerIdCarrito(idUsuario);
+
+        bd.eliminarContenidoCarrito(idCarrito);
+        bd.eliminarContenidoDetalleProducto();
     }
 }

@@ -2,9 +2,6 @@ package com.example.lazospetshop.actividades;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -39,6 +36,15 @@ public class ComidaActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         new ObtenerProductosTask().execute("https://lazospetshop.azurewebsites.net/api/producto/obtenertodos");
+
+        adapter = new ProductoAdapter(new ArrayList<>(), ComidaActivity.this);
+        adapter.setOnPrecioButtonClickListener(new ProductoAdapter.OnPrecioButtonClickListener() {
+            @Override
+            public void onPrecioButtonClick(int position) {
+                handlePrecioButtonClick(position);
+            }
+        });
+        recyclerView.setAdapter(adapter);
     }
 
     private class ObtenerProductosTask extends AsyncTask<String, Void, List<Producto>> {
@@ -98,18 +104,25 @@ public class ComidaActivity extends AppCompatActivity {
         protected void onPostExecute(List<Producto> listaProductos) {
             super.onPostExecute(listaProductos);
 
-            adapter = new ProductoAdapter(listaProductos, ComidaActivity.this);
-            recyclerView.setAdapter(adapter);
+            // Actualizar los datos en el adaptador
+            adapter.setListaProductos(listaProductos);
+            adapter.notifyDataSetChanged();
         }
     }
 
-    private void handlePrecioButtonClick(View view, Producto producto) {
+    private void handlePrecioButtonClick(int position) {
         // Lógica para manejar el clic del botón de precio
         LazosPetShop bd = new LazosPetShop(getApplicationContext());
         Integer idUsuario = bd.obtenerIdUsuario();
         Integer idCarrito = bd.obtenerIdCarrito(idUsuario);
-        bd.agregarDetalleProducto(idCarrito, 1, producto.getPrecio(), producto.getId(), producto.getNombre());
-        bd.actualizarMontoTotalCarrito(idCarrito);
-        Toast.makeText(getApplicationContext(), producto.getNombre() + " agregado!", Toast.LENGTH_SHORT).show();
+
+        // Obtener el producto utilizando el método bind en el ProductoViewHolder
+        Producto producto = adapter.getProductoAtPosition(position);
+
+        if (producto != null) {
+            bd.agregarDetalleProducto(idCarrito, 1, producto.getPrecio(), producto.getId(), producto.getNombre(), producto.getImagen());
+            bd.actualizarMontoTotalCarrito(idCarrito);
+            Toast.makeText(getApplicationContext(), producto.getNombre() + " agregado!", Toast.LENGTH_SHORT).show();
+        }
     }
 }

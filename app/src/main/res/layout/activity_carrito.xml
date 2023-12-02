@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".actividades.CarritoActivity">
+    tools:context=".actividades.CarritoActivityr">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,174 +27,15 @@
             android:gravity="start"
             android:text="Carrito"
             android:textSize="30sp"></TextView>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="96dp"
-            android:layout_marginHorizontal="20dp"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:src="@drawable/foto" />
-            <RadioGroup
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"/>
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="1dp"
-                android:checked="true"
-                android:text="Baño" />
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:checked="false"
-                android:text="Corte" />
-            <TextView
-                android:layout_width="129dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:text="S/ 20"
-                android:textSize="18sp"></TextView>
-            <Button
-                android:id="@+id/BorrarCarrito1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/btnBorrar"
-                android:textAllCaps="false"></Button>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_marginHorizontal="20dp"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:src="@drawable/foto" />
-            <RadioGroup
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"/>
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="1dp"
-                android:checked="true"
-                android:text="Baño" />
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:checked="true"
-                android:text="Corte" />
-            <TextView
-                android:layout_width="129dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:text="S/ 35"
-                android:textSize="18sp"></TextView>
-            <Button
-                android:id="@+id/BorrarCarrito2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/btnBorrar"
-                android:textAllCaps="false"></Button>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="84dp"
-            android:layout_marginHorizontal="20dp"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:src="@drawable/foto" />
-            <RadioGroup
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"/>
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="1dp"
-                android:checked="false"
-                android:text="Baño" />
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:checked="true"
-                android:text="Corte" />
-            <TextView
-                android:layout_width="129dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:text="S/ 15"
-                android:textSize="18sp"></TextView>
-            <Button
-                android:id="@+id/BorrarCarrito3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/btnBorrar"
 
-                android:textAllCaps="false"></Button>
-        </LinearLayout>
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewCarrito"
             android:layout_width="match_parent"
-            android:layout_height="72dp"
-            android:layout_marginHorizontal="20dp"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="129dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_weight="1"
-                android:src="@drawable/foto" />
-            <TextView
-                android:layout_width="204dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:text="Hueso Plastico"
-                android:textSize="15sp"></TextView>
-            <TextView
-                android:layout_width="129dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:text="S/15"
-                android:textSize="18sp"></TextView>
-            <Button
-                android:id="@+id/BorrarCarrito4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/btnBorrar"
-                android:textAllCaps="false"></Button>
-        </LinearLayout>
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_margin="8dp"/>
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="72dp"

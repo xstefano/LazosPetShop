@@ -19,6 +19,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
 
     private List<Producto> listaProductos;
     private Context context;
+    private OnPrecioButtonClickListener listener;
 
     public ProductoAdapter(List<Producto> listaProductos, Context context) {
         this.listaProductos = listaProductos;
@@ -43,6 +44,22 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
         return listaProductos.size();
     }
 
+    public void setListaProductos(List<Producto> listaProductos) {
+        this.listaProductos = listaProductos;
+        notifyDataSetChanged();
+    }
+
+    public Producto getProductoAtPosition(int position) {
+        if (position >= 0 && position < listaProductos.size()) {
+            return listaProductos.get(position);
+        }
+        return null;
+    }
+
+    public void setOnPrecioButtonClickListener(OnPrecioButtonClickListener listener) {
+        this.listener = listener;
+    }
+
     public class ProductoViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView imageViewProducto;
@@ -54,18 +71,30 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
             imageViewProducto = itemView.findViewById(R.id.imageViewProducto);
             textViewNombreProducto = itemView.findViewById(R.id.textViewNombreProducto);
             buttonPrecio = itemView.findViewById(R.id.buttonPrecio);
+
+            buttonPrecio.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION && listener != null) {
+                        listener.onPrecioButtonClick(position);
+                    }
+                }
+            });
         }
 
         public void bind(Producto producto) {
-            // Configura la vista con los datos del producto
             textViewNombreProducto.setText(producto.getNombre());
             buttonPrecio.setText("S/. " + producto.getPrecio());
 
-            // Carga la imagen usando Glide (asegúrate de agregar las dependencias en build.gradle)
             Glide.with(context)
                     .load(producto.getImagen())
                     .apply(new RequestOptions().override(450, 450))
                     .into(imageViewProducto);
         }
+    }
+
+    public interface OnPrecioButtonClickListener {
+        void onPrecioButtonClick(int position);
     }
 }
