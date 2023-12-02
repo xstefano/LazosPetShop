@@ -3,9 +3,11 @@ package com.example.lazospetshop.actividades;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +32,9 @@ public class  IniciarSesionActivity extends AppCompatActivity implements View.On
     private final static String urlController = "https://lazospetshop.azurewebsites.net/api/usuario/login";
     EditText txtCorreo, txtContraseña;
     Button btnIniciar, btnRegistrate, btnOlvidasteContra;
+    CheckBox logChkRecordar;
+
+
 
 
     @Override
@@ -38,11 +43,29 @@ public class  IniciarSesionActivity extends AppCompatActivity implements View.On
         setContentView(R.layout.activity_iniciar_sesion);
         LazosPetShop bd = new LazosPetShop(getApplicationContext());
         bd.eliminarRegistros();
+
+        SharedPreferences preferences = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
+        String correoGuardado = preferences.getString("correo", "");
+        String contraseñaGuardada = preferences.getString("contraseña", "");
+
+
         txtCorreo = findViewById(R.id.logTxtCorreo);
         txtContraseña = findViewById(R.id.logTxtContraseña);
         btnIniciar = findViewById(R.id.logBtnIniciar);
         btnRegistrate = findViewById(R.id.logBtnRegistrate);
         btnOlvidasteContra = findViewById(R.id.logLblOlvidarContraseña);
+        logChkRecordar = findViewById(R.id.logChkRecordar);
+
+        if (!correoGuardado.isEmpty()) {
+            txtCorreo.setText(correoGuardado);
+        }
+
+        if (!contraseñaGuardada.isEmpty()) {
+            txtContraseña.setText(contraseñaGuardada);
+            logChkRecordar.setChecked(true);
+
+            login();
+        }
 
         btnIniciar.setOnClickListener(this);
         btnRegistrate.setOnClickListener(this);
@@ -52,17 +75,8 @@ public class  IniciarSesionActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onClick(View view) {
-      /*  if (view.getId() == R.id.logBtnIniciar){
-            IniciarSesion(txtCorreo.getText().toString(), txtContraseña.getText().toString());
-        } else if (view.getId() == R.id.logBtnRegistrate) {
-            Registrate();
-        } else if (view.getId() == R.id.logLblOlvidarContraseña) {
-            OlvidarContraseña();;
-        }
-        */
        switch(view.getId()){
            case R.id.logBtnIniciar:
-
                login();
                break;
            case R.id.logBtnRegistrate:
@@ -75,11 +89,21 @@ public class  IniciarSesionActivity extends AppCompatActivity implements View.On
     }
 
     private void login() {
+
         AsyncHttpClient ahcLogin = new AsyncHttpClient();
         JSONObject jsonParams = new JSONObject();
         Hash hash = new Hash();
-       String correo= txtCorreo.getText().toString().trim();
-       String pass=txtContraseña.getText().toString().trim();
+        String correo= txtCorreo.getText().toString().trim();
+        String pass=txtContraseña.getText().toString().trim();
+
+        if (logChkRecordar.isChecked()) {
+            SharedPreferences preferences = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("correo", correo);
+            editor.putString("contraseña", pass);
+            editor.apply();
+        }
+
         try{
             jsonParams.put("correo",correo);
             jsonParams.put("contrasena",hash.StringToHash(pass,"SHA1"));
@@ -163,24 +187,7 @@ public class  IniciarSesionActivity extends AppCompatActivity implements View.On
        //iniciarSesion(correo,pass);
     }
 
-    private void iniciarSesion(String correo, String pass) {
-
-        correo = correo.toLowerCase().trim();
-        pass = pass.toLowerCase().trim();
-
-        if(correo.equals("cliente@gmail.com")&& pass.equals("12345")){
-                Intent iPerfil = new Intent(this, PerfilActivity.class);
-                iPerfil.putExtra("nombre", "Cliente");
-                startActivity(iPerfil);
-            }
-            else{
-                Toast.makeText(this, "Creendeciales incorrectas", Toast.LENGTH_SHORT).show();
-            }
-    }
     public void registrate(){
-        /*Intent iRegistrate = new Intent(this, RegistrarActiviy.class);
-        startActivities((iRegistrate));
-        finish();*/
         Intent iRegistrar = new Intent(this, RegistroActivity.class);
         startActivity(iRegistrar);
         finish();
@@ -191,24 +198,6 @@ public class  IniciarSesionActivity extends AppCompatActivity implements View.On
         startActivity(iOlvidaste);
         finish();
     }
-
-
-   /*
-    public void IniciarSesion(String correo, String contraseña) {
-
-        correo = correo.toLowerCase().trim();
-        contraseña = contraseña.toLowerCase().trim();
-
-        if (correo.equals("admin@gmail.com") && contraseña.equals("12345")) {
-            Intent iPerfil = new Intent(this, PerfilActivity.class);
-            iPerfil.putExtra("nombre", "Administrator");
-            startActivity((iPerfil));
-            finish();
-        } else {
-            Toast.makeText(this, "Las credenciales estan incorrectas.", Toast.LENGTH_SHORT).show();
-        }
-     }
-     */
 
      public void OlvidarContraseña() {
 
