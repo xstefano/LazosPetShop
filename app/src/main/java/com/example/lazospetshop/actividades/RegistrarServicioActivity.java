@@ -2,6 +2,8 @@ package com.example.lazospetshop.actividades;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -12,13 +14,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.lazospetshop.R;
+import com.example.lazospetshop.clases.Carrito;
 import com.example.lazospetshop.clases.Mascota;
+import com.example.lazospetshop.clases.ServicioCarrito;
 import com.example.lazospetshop.clases.TipoMascota;
 import com.example.lazospetshop.sqlite.LazosPetShop;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -32,7 +37,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
@@ -49,7 +57,10 @@ public class RegistrarServicioActivity extends AppCompatActivity implements View
     Button btnAgregar;
 
     RadioGroup rbgTipoServicio;
-
+    DatePicker dpFechaServicio;
+    String fechaServicio="";
+    Integer idMascotaServi = 0;
+    String imgaMascota = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +69,21 @@ public class RegistrarServicioActivity extends AppCompatActivity implements View
         imaMascota = findViewById(R.id.imaMascota);
         btnAgregar = findViewById(R.id.btnAgregarServicio);
         rbgTipoServicio = findViewById(R.id.rbgTipoServicio);
+        dpFechaServicio = findViewById(R.id.dtpFecha);
+        // Establece un listener para detectar cambios en la fecha seleccionada
+        dpFechaServicio.init(dpFechaServicio.getYear(), dpFechaServicio.getMonth(), dpFechaServicio.getDayOfMonth(),
+                (view, year, monthOfYear, dayOfMonth) -> {
+                    // Crea un objeto Calendar y establece la fecha seleccionada
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(year, monthOfYear, dayOfMonth);
+
+                    // Formatea la fecha en el formato deseado ("yyyy-MM-dd")
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                    String formattedDate = sdf.format(calendar.getTime());
+
+                    // Imprime la fecha formateada (puedes hacer lo que quieras con ella)
+                    fechaServicio = formattedDate;
+                });
         cargarRaza();
         spiMascota.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -65,7 +91,9 @@ public class RegistrarServicioActivity extends AppCompatActivity implements View
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id)
             {
                 int idMascota = spiMascota.getSelectedItemPosition() ;
-                Toast.makeText(adapterView.getContext(), tMascotas.get(idMascota).getImagen(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(adapterView.getContext(), tMascotas.get(idMascota).getImagen(), Toast.LENGTH_SHORT).show();
+                idMascotaServi = tMascotas.get(idMascota).getId();
+                imgaMascota = tMascotas.get(idMascota).getImagen();
                 //new CargarImagenTask(imaMascota).execute(tMascotas.get(idMascota).getImagen());
                 // Muestra la imagen (asumiendo que la imagen está en Base64)
                 /*String base64Image = "";
@@ -160,11 +188,12 @@ public class RegistrarServicioActivity extends AppCompatActivity implements View
 
     @Override
     public void onClick(View v) {
+        Intent perfil = null;
         LazosPetShop bd = new LazosPetShop(getApplicationContext());
         int idMascota = spiMascota.getSelectedItemPosition() + 1;
         double precioUnitario = 0;
         double subTotal = 0;
-        String fechaServicio="";
+
         int idServicio = rbgTipoServicio.getCheckedRadioButtonId();
         if(idServicio == R.id.rbBano){
             idServicio = 1;
@@ -184,10 +213,18 @@ public class RegistrarServicioActivity extends AppCompatActivity implements View
         Integer idUsuario = bd.obtenerIdUsuario();
         Integer idCarrito = bd.obtenerIdCarrito(idUsuario);
 
-        bd.agregarDetalleServicio(idCarrito,precioUnitario,idServicio,subTotal,idMascota,fechaServicio);
-
-
-
+        bd.agregarDetalleServicio(idCarrito,precioUnitario,idServicio,subTotal,idMascotaServi,fechaServicio,imgaMascota);
+        Toast.makeText(getApplicationContext(), "Servicio Registrado!", Toast.LENGTH_SHORT).show();
+        bd.actualizarMontoTotalCarrito(idCarrito);
+        Carrito carro = bd.obtenerCarritoPorUsuario(idUsuario);
+        Toast.makeText(getApplicationContext(), carro.getMontoTotal()+"", Toast.LENGTH_SHORT).show();
+        for (ServicioCarrito servCarrito: carro.getDetalleServicio()
+             ) {
+            Toast.makeText(getApplicationContext(), servCarrito.getIdServicio()+"" ,Toast.LENGTH_SHORT).show();
+        }
+        finish();
+        perfil = new Intent(getApplicationContext(), PerfilActivity.class);
+        startActivity(perfil);
 
     }
 }

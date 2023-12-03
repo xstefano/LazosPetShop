@@ -5,6 +5,7 @@ import static java.security.AccessController.getContext;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +47,14 @@ public class ConfiguracionActivity extends AppCompatActivity implements View.OnC
     private void cerrarSesion() {
         //elimina el usuario de sqlite
         LazosPetShop lazosPetShop = new LazosPetShop(getApplicationContext());
-        lazosPetShop.eliminarUsuario(1);
+        Integer idUsuario = lazosPetShop.obtenerIdUsuario();
+        lazosPetShop.eliminarUsuario(idUsuario);
+        SharedPreferences preferences = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("correo", null);
+        editor.putString("contraseña", null);
+        editor.apply();
+
         //eliminar el historial de actividades
         finish();
         //cargamos la actividad de inicio de sesión
