@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.lazospetshop.R;
 import com.example.lazospetshop.adaptadores.ProductoCarritoAdapter;
 import com.example.lazospetshop.clases.ProductosCarrito;
+import com.example.lazospetshop.clases.ServicioCarrito;
 import com.example.lazospetshop.sqlite.LazosPetShop;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class CarritoActivity extends AppCompatActivity implements View.OnClickLi
     private RecyclerView recyclerView;
     private ProductoCarritoAdapter adapter;
     private List<ProductosCarrito> listaProductosCarrito;
+    private List<ServicioCarrito> listaServiciosCarrito;
 
     private Button btnVolCarrito,btnComprar;
 
@@ -45,6 +47,17 @@ public class CarritoActivity extends AppCompatActivity implements View.OnClickLi
         int idCarrito = obtenerIdCarrito(idUsuario);
 
         listaProductosCarrito = obtenerProductosCarrito(idCarrito);
+        listaServiciosCarrito = obtenerServiciosCarrito(idCarrito);
+
+        for (ServicioCarrito serv: listaServiciosCarrito
+             ) {
+            ProductosCarrito prod = new ProductosCarrito();
+            prod.setNombreProducto(serv.getNombreServicio());
+            prod.setCantidad(1);
+            prod.setSubTotal(serv.getSubTotal());
+            prod.setImagen(serv.getImagen());
+            listaProductosCarrito.add(prod);
+        }
 
         // Configurar el adaptador
         adapter = new ProductoCarritoAdapter(listaProductosCarrito, this);
@@ -61,6 +74,10 @@ public class CarritoActivity extends AppCompatActivity implements View.OnClickLi
 
     private List<ProductosCarrito> obtenerProductosCarrito(int idCarrito) {
         return bd.obtenerProductosCarrito(idCarrito);
+    }
+
+    private List<ServicioCarrito> obtenerServiciosCarrito(int idCarrito) {
+        return bd.obtenerServiciosCarrito(idCarrito);
     }
 
     @Override

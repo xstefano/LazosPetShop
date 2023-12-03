@@ -90,6 +90,7 @@
             android:layout_height="wrap_content">
 
             <DatePicker
+                android:id="@+id/dtpFecha"
                 android:layout_width="wrap_content"
                 android:layout_height="391dp"
                 android:layout_marginStart="30dp"

@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 
 import com.example.lazospetshop.clases.Carrito;
 import com.example.lazospetshop.clases.ProductosCarrito;
+import com.example.lazospetshop.clases.ServicioCarrito;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,10 +41,20 @@ public class LazosPetShop extends SQLiteOpenHelper{
                     "PrecioUnitario REAL," +
                     "imagen TEXT," +
                     "Subtotal REAL);";
+    private static final String createTableDetalleServicio =
+            "CREATE TABLE IF NOT EXISTS DetalleServicio (" +
+                    "idDetalleCarritoServicio INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "idCarrito INTEGER," +
+                    "idServicio INTEGER," +
+                    "idMascota INTEGER," +
+                    "imagen TEXT," +
+                    "fechaServicio DATE," +
+                    "precioUnitario REAL," +
+                    "subtotal REAL);";
     private static final String dropTableUsuario = "DROP TABLE IF EXISTS USUARIO";
     private static final String dropTableCarrito= "DROP TABLE IF EXISTS Carrito";
     private static final String dropTableDetalleProducto= "DROP TABLE IF EXISTS DetalleProducto";
-
+    private static final String dropTableDetalleServicio= "DROP TABLE IF EXISTS DetalleServicio";
     //Constructor
     public LazosPetShop(@Nullable Context context) {
         super(context, nombreBD, null, versionBD);
@@ -55,6 +66,7 @@ public class LazosPetShop extends SQLiteOpenHelper{
         sqLiteDatabase.execSQL(createTableUsuario);
         sqLiteDatabase.execSQL(createTableCarrito);
         sqLiteDatabase.execSQL(createTableDetalleProducto);
+        sqLiteDatabase.execSQL(createTableDetalleServicio);
     }
 
     @Override
@@ -67,6 +79,9 @@ public class LazosPetShop extends SQLiteOpenHelper{
 
         sqLiteDatabase.execSQL(dropTableDetalleProducto);
         sqLiteDatabase.execSQL(createTableDetalleProducto);
+
+        sqLiteDatabase.execSQL(dropTableDetalleServicio);
+        sqLiteDatabase.execSQL(createTableDetalleServicio);
     }
 
     public boolean agregarUsuario(int id, String correo, String clave){
@@ -217,12 +232,81 @@ public class LazosPetShop extends SQLiteOpenHelper{
         return ret;
     }
     @SuppressLint("Range")
-    public Carrito obtenerCarritoPorUsuario(int idUsuario) {
-        SQLiteDatabase db = getReadableDatabase();
-        Carrito carrito = null;
+    public boolean agregarDetalleServicio(int idCarrito, double precioUnitario, int idServicio,double subTotal,int idMascota,String fechaServicio,String imagen) {
+        boolean ret = false;
+        SQLiteDatabase db = getWritableDatabase();
 
         if (db != null) {
+            try {
+                // Iniciar la transacción
+                db.beginTransaction();
+
+                // Consulta para verificar si ya existe un detalle para este producto en el carrito
+                Cursor cursor = db.rawQuery("SELECT idDetalleCarritoServicio FROM DetalleServicio " +
+                        "WHERE idCarrito = ? AND idServicio = ? AND idMascota = ? LIMIT 1", new String[]{String.valueOf(idCarrito), String.valueOf(idServicio), String.valueOf(idMascota)});
+
+                if (cursor != null && cursor.moveToFirst()) {
+                    // Si existe, actualizar la cantidad y recalcular el subtotal
+                    /*int idDetalle = cursor.getInt(cursor.getColumnIndex("idDetalleCarritoProducto"));
+                    int cantidadExistente = cursor.getInt(cursor.getColumnIndex("cantidad"));
+
+                    cantidad += cantidadExistente;
+
+                    double nuevoSubtotal = cantidad * precioUnitario;
+
+                    ContentValues values = new ContentValues();
+                    values.put("cantidad", cantidad);
+                    values.put("Subtotal", nuevoSubtotal);
+
+                    // Actualizar el detalle existente
+                    db.update("DetalleProducto", values, "idDetalleCarritoProducto = ?", new String[]{String.valueOf(idDetalle)});*/
+                    return false;
+                } else {
+                    /*"idDetalleCarritoServicio INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "idCarrito INTEGER," +
+                        "idServicio INTEGER," +
+                        "idMascota INTEGER," +
+                        "precioUnitario REAL," +
+                        "subtotal REAL);";*/
+                    // Si no existe, agregar un nuevo detalle de producto
+                    ContentValues values = new ContentValues();
+                    values.put("idCarrito", idCarrito);
+                    values.put("idServicio", idServicio);
+                    values.put("idMascota", idMascota);
+                    values.put("fechaServicio",fechaServicio);
+                    values.put("precioUnitario", precioUnitario);
+                    values.put("subtotal", subTotal);
+                    values.put("imagen",imagen);
+
+                    // Insertar el nuevo detalle de producto en la tabla DetalleProducto
+                    db.insert("DetalleServicio", null, values);
+                }
+
+                // Establecer la transacción como exitosa
+                db.setTransactionSuccessful();
+
+                ret = true;
+            } catch (Exception e) {
+                // Manejar la excepción si ocurre algún error
+                e.printStackTrace();
+            } finally {
+                // Finalizar la transacción
+                db.endTransaction();
+
+                // Cerrar la base de datos
+                db.close();
+            }
+        }
+        return ret;
+    }
+    @SuppressLint("Range")
+    public Carrito obtenerCarritoPorUsuario(int idUsuario) {
+        SQLiteDatabase db = getReadableDatabase();
+        boolean flag = false;
+        Carrito carrito = new Carrito();
+        if (db != null) {
             Cursor cursor = null;
+            Cursor cursorDetalle = null;
 
             try {
                 // Consulta para obtener el carrito y sus detalles
@@ -230,12 +314,19 @@ public class LazosPetShop extends SQLiteOpenHelper{
                         "FROM Carrito C " +
                         "LEFT JOIN DetalleProducto DP ON C.idCarrito = DP.idCarrito " +
                         "WHERE C.idUsuario = ?";
+                String consultaServicio = "SELECT C.idCarrito, C.idUsuario, C.montoTotal,C.metodoPago, DS.idDetalleCarritoServicio, DS.idServicio, DS.idMascota, DS.precioUnitario, DS.subtotal,DS.fechaServicio " +
+                        "FROM Carrito C " +
+                        "LEFT JOIN DetalleServicio DS ON C.idCarrito = DS.idCarrito " +
+                        "WHERE C.idUsuario = ?";
 
                 cursor = db.rawQuery(consulta, new String[]{String.valueOf(idUsuario)});
+                cursorDetalle = db.rawQuery(consultaServicio, new String[]{String.valueOf(idUsuario)});
                 List<ProductosCarrito> detalle = new ArrayList();
+                List<ServicioCarrito> detalleServicio = new ArrayList<>();
+
                 if (cursor != null && cursor.moveToFirst()) {
+
                     // Crear el objeto Carrito
-                    carrito = new Carrito();
                     carrito.setIdCarrito(cursor.getInt(cursor.getColumnIndex("idCarrito")));
                     carrito.setIdUsuario(cursor.getInt(cursor.getColumnIndex("idUsuario")));
                     carrito.setMontoTotal(cursor.getDouble(cursor.getColumnIndex("montoTotal")));
@@ -258,6 +349,25 @@ public class LazosPetShop extends SQLiteOpenHelper{
                     } while (cursor.moveToNext());
                     carrito.setDetalle(detalle);
                 }
+
+                if (cursorDetalle != null && cursorDetalle.moveToFirst()) {
+
+
+                    // Crear y agregar detalles de producto al carrito
+                    do {
+                        ServicioCarrito detServicio = new ServicioCarrito();
+                        detServicio.setIdCarrito(cursorDetalle.getInt(cursorDetalle.getColumnIndex("idCarrito")));
+                        detServicio.setIdServicio(cursorDetalle.getInt(cursorDetalle.getColumnIndex("idServicio")));
+                        detServicio.setIdMascota(cursorDetalle.getInt(cursorDetalle.getColumnIndex("idMascota")));
+                        detServicio.setFechaServicio(cursorDetalle.getString(cursorDetalle.getColumnIndex("fechaServicio")));
+                        detServicio.setPrecioUnitario(cursorDetalle.getDouble(cursorDetalle.getColumnIndex("precioUnitario")));
+                        detServicio.setSubTotal(cursorDetalle.getDouble(cursorDetalle.getColumnIndex("subtotal")));
+                        // Agregar detalleProducto a la lista de detalles en el carrito
+                        detalleServicio.add(detServicio);
+
+                    } while (cursorDetalle.moveToNext());
+                    carrito.setDetalleServicio(detalleServicio);
+                }
             } catch (Exception e) {
                 // Manejar la excepción si ocurre algún error
                 e.printStackTrace();
@@ -265,6 +375,9 @@ public class LazosPetShop extends SQLiteOpenHelper{
                 // Cerrar el cursor y la base de datos
                 if (cursor != null) {
                     cursor.close();
+                }
+                if (cursorDetalle != null) {
+                    cursorDetalle.close();
                 }
                 db.close();
             }
@@ -299,6 +412,24 @@ public class LazosPetShop extends SQLiteOpenHelper{
             try {
                 db.beginTransaction();
                 db.delete("DetalleProducto", null, null);
+                db.setTransactionSuccessful();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                db.endTransaction();
+                db.close();
+            }
+        }
+    }
+
+    @SuppressLint("Range")
+    public void eliminarContenidoServicioProducto() {
+        SQLiteDatabase db = getWritableDatabase();
+
+        if (db != null) {
+            try {
+                db.beginTransaction();
+                db.delete("DetalleServicio", null, null);
                 db.setTransactionSuccessful();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -387,8 +518,122 @@ public class LazosPetShop extends SQLiteOpenHelper{
 
         return listaProductos;
     }
+
+    @SuppressLint("Range")
+    public List<ServicioCarrito> obtenerServiciosCarrito(int idCarrito) {
+        List<ServicioCarrito> listaServicios = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        if (db != null) {
+            Cursor cursor = null;
+            /*"idDetalleCarritoServicio INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "idCarrito INTEGER," +
+                    "idServicio INTEGER," +
+                    "idMascota INTEGER," +
+                    "fechaServicio DATE," +
+                    "precioUnitario REAL," +
+                    "subtotal REAL);";*/
+            try {
+                // Consulta para obtener los productos del carrito con sus detalles
+                cursor = db.rawQuery("SELECT idDetalleCarritoServicio, idServicio, case when idServicio = 1 then 'baño' when idServicio = 2 then 'Corte' when idServicio = 3 then 'Baño/Servicio' end as nombreServicio, idMascota, fechaServicio,precioUnitario,subtotal,imagen " +
+                        " FROM DetalleServicio " +
+                        "WHERE idCarrito = ?", new String[]{String.valueOf(idCarrito)});
+
+
+
+                // Mover el cursor a través de los resultados
+                while (cursor != null && cursor.moveToNext()) {
+                    ServicioCarrito serv = new ServicioCarrito();
+                    serv.setIdServicio(cursor.getInt(cursor.getColumnIndex("idServicio")));
+                    serv.setNombreServicio(cursor.getString(cursor.getColumnIndex("nombreServicio")));
+                    serv.setIdMascota(cursor.getInt(cursor.getColumnIndex("idMascota")));
+                    serv.setPrecioUnitario(cursor.getDouble(cursor.getColumnIndex("precioUnitario")));
+                    serv.setFechaServicio(cursor.getString(cursor.getColumnIndex("fechaServicio")));
+                    serv.setImagen(cursor.getString(cursor.getColumnIndex("imagen")));
+                    serv.setSubTotal(cursor.getDouble(cursor.getColumnIndex("subtotal")));
+
+                    // Crear un objeto ProductoCarrito y agregarlo a la lista
+
+                    listaServicios.add(serv);
+                }
+            } catch (Exception e) {
+                // Manejar la excepción si ocurre algún error
+                e.printStackTrace();
+            } finally {
+                // Cerrar el cursor
+                if (cursor != null) {
+                    cursor.close();
+                }
+
+                // Cerrar la base de datos
+                db.close();
+            }
+        }
+
+        return listaServicios;
+    }
+
     @SuppressLint("Range")
     public void actualizarMontoTotalCarrito(int idCarrito) {
+        boolean ret = false;
+        SQLiteDatabase db = getWritableDatabase();
+
+        if (db != null) {
+            Cursor cursor = null;
+            Cursor cursorServicio = null;
+            double nuevoMonto = 0;
+            double nuevoMontoServicio = 0;
+            try {
+                // Iniciar la transacción
+                db.beginTransaction();
+
+                // Consulta para calcular el nuevo monto total del carrito
+                cursor = db.rawQuery("SELECT SUM(Subtotal) AS nuevoMonto FROM DetalleProducto " +
+                        "WHERE idCarrito = ?", new String[]{String.valueOf(idCarrito)});
+                cursorServicio = db.rawQuery("SELECT SUM(subtotal) AS nuevoMonto FROM DetalleServicio " +
+                        "WHERE idCarrito = ?", new String[]{String.valueOf(idCarrito)});
+
+                // Mover el cursor al primer resultado
+                if (cursor != null && cursor.moveToFirst()) {
+                    nuevoMonto = cursor.getDouble(cursor.getColumnIndex("nuevoMonto"));
+
+
+                }
+                if (cursorServicio != null && cursorServicio.moveToFirst()) {
+                    nuevoMontoServicio = cursorServicio.getDouble(cursorServicio.getColumnIndex("nuevoMonto"));
+                }
+                if((nuevoMontoServicio+nuevoMonto) > 0){
+                    // Actualizar el monto total en la tabla Carrito
+                    ContentValues values = new ContentValues();
+                    values.put("montoTotal", (nuevoMonto + nuevoMontoServicio));
+
+                    db.update("Carrito", values, "idCarrito = ?", new String[]{String.valueOf(idCarrito)});
+
+                    // Establecer la transacción como exitosa
+                    db.setTransactionSuccessful();
+                    ret = true;
+
+                }
+            } catch (Exception e) {
+                // Manejar la excepción si ocurre algún error
+                e.printStackTrace();
+            } finally {
+                // Finalizar la transacción
+                db.endTransaction();
+
+                // Cerrar el cursor y la base de datos
+                if (cursor != null) {
+                    cursor.close();
+                }
+                db.close();
+            }
+        }
+
+        //return ret;
+    }
+
+    @SuppressLint("Range")
+    public void actualizarMontoTotalCarritoServicio(int idCarrito) {
         boolean ret = false;
         SQLiteDatabase db = getWritableDatabase();
 
@@ -399,7 +644,7 @@ public class LazosPetShop extends SQLiteOpenHelper{
                 db.beginTransaction();
 
                 // Consulta para calcular el nuevo monto total del carrito
-                cursor = db.rawQuery("SELECT SUM(Subtotal) AS nuevoMonto FROM DetalleProducto " +
+                cursor = db.rawQuery("SELECT SUM(subtotal) AS nuevoMonto FROM DetalleServicio " +
                         "WHERE idCarrito = ?", new String[]{String.valueOf(idCarrito)});
 
                 // Mover el cursor al primer resultado
@@ -443,6 +688,9 @@ public class LazosPetShop extends SQLiteOpenHelper{
 
                 // Eliminar todos los registros de la tabla DetalleProducto
                 db.delete("DetalleProducto", null, null);
+
+                // Eliminar todos los registros de la tabla DetalleServicio
+                db.delete("DetalleServicio", null, null);
 
                 // Eliminar todos los registros de la tabla Carrito
                 db.delete("Carrito", null, null);
